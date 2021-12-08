@@ -16,10 +16,15 @@ public class MenuStart : MonoBehaviour
         PlayerPrefs.SetInt("kills", 0);
 
         playButton.onClick.AddListener(LoadFirstScene);
-        quitButton.onClick.AddListener(Application.Quit);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     void LoadFirstScene() {
         SceneManager.LoadScene("Level_1");
+    }
+
+    void QuitGame() {
+        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }
