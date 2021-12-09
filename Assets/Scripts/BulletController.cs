@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject bulletDecal;
 
     private float speed = 50f;
     private float timeToDestroy = 3f;
@@ -21,7 +19,7 @@ public class BulletController : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime); 
-        if (!hit && Vector3.Distance(transform.position, target) < .01f)
+        if (!hit && Vector3.Distance(transform.position, target) < 0.1f)
         {
             Destroy(gameObject);
         }
@@ -29,8 +27,6 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        ContactPoint contact = other.GetContact(0);
-        GameObject.Instantiate(bulletDecal, contact.point + contact.normal * 0.0001f, Quaternion.LookRotation(contact.normal));
         Destroy(gameObject);
     }
 
