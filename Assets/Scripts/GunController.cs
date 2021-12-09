@@ -1,20 +1,64 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class GunController : MonoBehaviour
+[RequireComponent(typeof(CharacterController))]
+public class GunController : NetworkBehaviour
 {
-    // Player Gun and Ammo Variables
+    // Basic Requirements
+    CharacterController characterController;
+
+    // Player Gun Variables
     public int gun = 1;
-    public int ammoPistol = 6; // gun 1 = peas
-    public int ammoSMG = 10; // gun 2 = corn
-    public int ammoShotgun = 4; // gun 3 = grains/wheat
-    public int ammoSniper = 6; // gun 4 = sunflower seeds
-    
+    [SerializeField] public GameObject peaPrefab; // pistol gun 1 = peas
+    [SerializeField] public GameObject cornPrefab; // SMG gun 2 = corn
+    [SerializeField] public GameObject grainPrefab; // shotgun gun 3 = grains
+    [SerializeField] public GameObject sunSeedPrefab; // sniper gun 4 = sunflower seeds
+    public Gun pistol;
+    public Gun smg;
+    public Gun shotgun;
+    public Gun sniper;
+
+    private void Start()
+    {
+        // Psuedo-Constructor for Gun: fields you can/should change
+        // Gun(int dmg, int bps, int ammo, float dShot, float range, float spread, GameObject bullet)
+        
+        // PISTOL
+        pistol = gameObject.AddComponent<Gun>();
+        pistol.dmg = 25;
+        pistol.spread = 0.02f;
+        pistol.bulletPrefab = peaPrefab;
+        
+        // SMG
+        smg = gameObject.AddComponent<Gun>();
+        smg.dmg = 10;
+        smg.ammo = 20;
+        smg.bulletPrefab = cornPrefab;
+        
+        // SHOTGUN
+        shotgun = gameObject.AddComponent<Gun>();
+        shotgun.dmg = 15;
+        shotgun.bps = 6;
+        shotgun.ammo = 12;
+        shotgun.deltaShot = 2;
+        shotgun.spread = 0.06f;
+        shotgun.bulletPrefab = grainPrefab;
+        
+        // SNIPER
+        sniper = gameObject.AddComponent<Gun>();
+        sniper.dmg = 50;
+        sniper.deltaShot = 4;
+        sniper.range = 100;
+        sniper.bulletPrefab = sunSeedPrefab;
+    }
+
     // ********** Player Shooting **********
     private void Update()
     {
+        // Select Gun by pressing 1, 2, 3, or 4.
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             gun = 1;
@@ -39,46 +83,37 @@ public class GunController : MonoBehaviour
             {
                 case 1:
                 {
-                    if (ammoPistol >= 1)
+                    if (pistol.ready && pistol.ammo >= pistol.bps)
                     {
-                        shootGun();
+                        pistol.i = pistol.bps;
+                        pistol.Shoot();
                     }
-
-                    break;
-                }
-                case 2:
-                {
-                    if (ammoSMG >= 1)
-                    {
-                        shootGun();
-                    }
-
                     break;
                 }
                 case 3:
                 {
-                    if (ammoShotgun >= 1)
+                    if (shotgun.ready && shotgun.ammo >= shotgun.bps)
                     {
-                        shootGun();
+                        shotgun.i = shotgun.bps;
+                        shotgun.Shoot();
                     }
-
                     break;
                 }
                 case 4:
                 {
-                    if (ammoSniper >= 1)
+                    if (sniper.ready && sniper.ammo >= sniper.bps)
                     {
-                        shootGun();
+                        sniper.i = sniper.bps;
+                        sniper.Shoot();
                     }
-
                     break;
                 }
             }
         }
-    }
-
-    private void shootGun()
-    {
-        
+        if (gun == 2 && Input.GetKey(KeyCode.Mouse0) && smg.ready && smg.ammo >= smg.bps)
+        {
+            smg.i = smg.bps;
+            smg.Shoot();
+        }
     }
 }

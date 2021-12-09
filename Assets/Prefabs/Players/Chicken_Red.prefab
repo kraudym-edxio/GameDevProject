@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 7808785535395823741}
   - component: {fileID: 4466227933393002635}
   - component: {fileID: 5983463804736475878}
+  - component: {fileID: 2281508030716840610}
   m_Layer: 0
   m_Name: Chicken_Red
   m_TagString: Player
@@ -358,6 +359,29 @@ MonoBehaviour:
   lookSpeed: 2
   lookXLimit: 75
   canMove: 1
+--- !u!114 &2281508030716840610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492992644077190592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ce3078c9407584baeda93e717d1dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  gun: 1
+  peaPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
+  cornPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
+  grainPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
+  sunSeedPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
+  pistol: {fileID: 0}
+  smg: {fileID: 0}
+  shotgun: {fileID: 0}
+  sniper: {fileID: 0}
 --- !u!1 &2493008700413267690
 GameObject:
   m_ObjectHideFlags: 0
