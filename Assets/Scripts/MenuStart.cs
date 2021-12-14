@@ -9,17 +9,34 @@ public class MenuStart : MonoBehaviour
     public Button playButton;
     public Button quitButton;
 
+    // sound manager
+    private AudioSource menuMusic;
+
+    // options GUI items
+    public Slider volumeSlider;
+
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("coinCount", 0);
-        PlayerPrefs.SetInt("kills", 0);
+        //PlayerPrefs.SetInt("coinCount", 0);
+        //PlayerPrefs.SetInt("kills", 0);
+
+        menuMusic = gameObject.GetComponent<AudioSource>();
+
+        volumeSlider.onValueChanged.AddListener((float val) => {
+            menuMusic.volume = val;
+        });
 
         playButton.onClick.AddListener(LoadFirstScene);
-        quitButton.onClick.AddListener(Application.Quit);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     void LoadFirstScene() {
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
+
+    void QuitGame() {
+        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }
