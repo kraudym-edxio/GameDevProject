@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 410626739}
   - component: {fileID: 410626738}
-  - component: {fileID: 410626737}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -141,14 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &410626737
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410626736}
-  m_Enabled: 1
 --- !u!20 &410626738
 Camera:
   m_ObjectHideFlags: 0
@@ -356,6 +347,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1988049858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 200076160020085884, guid: 5ac0e0bfa8a38f5408e7daaecaf7d1fd, type: 3}
+  m_PrefabInstance: {fileID: 5547108690676564963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1988049859
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988049858}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 975120463260074643, guid: 9783614c1c22d7b4db8f2c92eb69ec82, type: 3}
 --- !u!1 &3676780294584619073 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9222745058898154402, guid: 5ac0e0bfa8a38f5408e7daaecaf7d1fd, type: 3}

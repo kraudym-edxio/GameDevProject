@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction pauseAction;
 
     
 
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
+        pauseAction = playerInput.actions["Pause"];
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
     */
     void Update()
     {
+        Debug.Log(Input.GetButton("Jump"));
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
