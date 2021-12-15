@@ -374,10 +374,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   gun: 1
-  peaPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
-  cornPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
-  grainPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
-  sunSeedPrefab: {fileID: 6757560177599597614, guid: 80ea828f9ce4b634ebf3ecf289230400, type: 3}
+  peaPrefab: {fileID: 444400683231780093, guid: ae1652166a654aa4690fc2fc4869eb8b, type: 3}
+  cornPrefab: {fileID: 2643336018903559669, guid: c8932bd085ddeaa4ea3c5e746c925584, type: 3}
+  grainPrefab: {fileID: 7488599849025497149, guid: 3998fabfe65f4244db3f7400bfa4b8d9, type: 3}
+  sunSeedPrefab: {fileID: 5247463454208115816, guid: 22e4d5bda9c28e542a381706094be44a, type: 3}
   pistol: {fileID: 0}
   smg: {fileID: 0}
   shotgun: {fileID: 0}

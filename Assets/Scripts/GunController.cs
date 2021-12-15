@@ -21,7 +21,7 @@ public class GunController : NetworkBehaviour
     public Gun shotgun;
     public Gun sniper;
 
-    private void Start()
+    private void Awake()
     {
         // Psuedo-Constructor for Gun: fields you can/should change
         // Gun(int dmg, int bps, int ammo, float dShot, float range, float spread, GameObject bullet)
@@ -31,12 +31,14 @@ public class GunController : NetworkBehaviour
         pistol.dmg = 25;
         pistol.spread = 0.02f;
         pistol.bulletPrefab = peaPrefab;
+        pistol.camera = Camera.current.transform;
         
         // SMG
         smg = gameObject.AddComponent<Gun>();
         smg.dmg = 10;
         smg.ammo = 20;
         smg.bulletPrefab = cornPrefab;
+        smg.camera = Camera.current.transform;
         
         // SHOTGUN
         shotgun = gameObject.AddComponent<Gun>();
@@ -46,6 +48,7 @@ public class GunController : NetworkBehaviour
         shotgun.deltaShot = 2;
         shotgun.spread = 0.06f;
         shotgun.bulletPrefab = grainPrefab;
+        shotgun.camera = Camera.current.transform;
         
         // SNIPER
         sniper = gameObject.AddComponent<Gun>();
@@ -53,6 +56,7 @@ public class GunController : NetworkBehaviour
         sniper.deltaShot = 4;
         sniper.range = 100;
         sniper.bulletPrefab = sunSeedPrefab;
+        sniper.camera = Camera.current.transform;
     }
 
     // ********** Player Shooting **********
