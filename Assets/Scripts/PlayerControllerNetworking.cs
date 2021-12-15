@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -15,7 +16,6 @@ public class PlayerControllerNetworking: NetworkBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
-    public GameObject pauseMenu;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -23,6 +23,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
     [HideInInspector]
     public bool canMove = true;
+
+    // pause menu
+    public GameObject pauseMenu;
+    private Button resumeBtn;
+    private Button quitBtn;
 
     void Start()
     {
@@ -39,6 +44,24 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         // why doesn't unity let me find inactive game objects???? 
         pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+
+        resumeBtn = pauseMenu.transform.Find("ResumeButton").gameObject.GetComponent<Button>();
+        quitBtn = pauseMenu.transform.Find("QuitButton").gameObject.GetComponent<Button>();
+
+        resumeBtn.onClick.AddListener(() => {
+            pauseMenu.SetActive(false);
+            // lock mouse again
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            // can move again
+            canMove = true;
+        });
+
+        quitBtn.onClick.AddListener(() => {
+            // either quit the application or go to the main menu... for now I will log and quit
+            Debug.Log("Quitting game with quit button...");
+            Application.Quit();
+        });
     }
 
     void Update()
@@ -52,8 +75,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
         if (Input.GetButton("Pause")) {
             pauseMenu.SetActive(true);
             // unlock cursor
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            // player should not be able to be controlled...
+            canMove = false;
         }
 
         // We are grounded, so recalculate move direction based on axes
