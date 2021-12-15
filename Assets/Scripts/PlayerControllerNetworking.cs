@@ -22,8 +22,15 @@ public class PlayerControllerNetworking: NetworkBehaviour
     [HideInInspector]
     public bool canMove = true;
 
+    public HealthBar healthBar;
+    public int maxHealth = 100;
+    public int currentHealth;
+
     void Start()
     {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
@@ -40,6 +47,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            takeDmg(20);
+        }
+        
         if (!isLocalPlayer)
         {
             return;
@@ -84,4 +96,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
+
+    void takeDmg(int dmg)
+    {
+        currentHealth -= dmg;
+        healthBar.SetHealth(currentHealth);
+    }
+    
 }
