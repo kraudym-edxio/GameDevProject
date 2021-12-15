@@ -16,13 +16,16 @@ public class GunController : NetworkBehaviour
     [SerializeField] public GameObject cornPrefab; // SMG gun 2 = corn
     [SerializeField] public GameObject grainPrefab; // shotgun gun 3 = grains
     [SerializeField] public GameObject sunSeedPrefab; // sniper gun 4 = sunflower seeds
+    [SerializeField] public Camera camera;
+    [SerializeField] public GameObject beakPrefab;
     public Gun pistol;
     public Gun smg;
     public Gun shotgun;
     public Gun sniper;
 
-    private void Awake()
+    private void Start()
     {
+        Transform beak = beakPrefab.transform;
         // Psuedo-Constructor for Gun: fields you can/should change
         // Gun(int dmg, int bps, int ammo, float dShot, float range, float spread, GameObject bullet)
         
@@ -31,14 +34,17 @@ public class GunController : NetworkBehaviour
         pistol.dmg = 25;
         pistol.spread = 0.02f;
         pistol.bulletPrefab = peaPrefab;
-        pistol.camera = Camera.current.transform;
+        pistol.camera = camera;
+        pistol.bulletSpawn = beak;
         
         // SMG
         smg = gameObject.AddComponent<Gun>();
         smg.dmg = 10;
         smg.ammo = 20;
+        smg.deltaShot = 0.3f;
         smg.bulletPrefab = cornPrefab;
-        smg.camera = Camera.current.transform;
+        smg.camera = camera;
+        smg.bulletSpawn = beak;
         
         // SHOTGUN
         shotgun = gameObject.AddComponent<Gun>();
@@ -48,7 +54,8 @@ public class GunController : NetworkBehaviour
         shotgun.deltaShot = 2;
         shotgun.spread = 0.06f;
         shotgun.bulletPrefab = grainPrefab;
-        shotgun.camera = Camera.current.transform;
+        shotgun.camera = camera;
+        shotgun.bulletSpawn = beak;
         
         // SNIPER
         sniper = gameObject.AddComponent<Gun>();
@@ -56,7 +63,8 @@ public class GunController : NetworkBehaviour
         sniper.deltaShot = 4;
         sniper.range = 100;
         sniper.bulletPrefab = sunSeedPrefab;
-        sniper.camera = Camera.current.transform;
+        sniper.camera = camera;
+        sniper.bulletSpawn = beak;
     }
 
     // ********** Player Shooting **********

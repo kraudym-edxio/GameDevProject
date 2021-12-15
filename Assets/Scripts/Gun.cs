@@ -25,7 +25,7 @@ public class Gun : NetworkBehaviour
     public TextMeshProUGUI text;
     public GameObject bulletPrefab;
     public Transform bulletSpawn; // set to chicken's beak
-    public Transform camera;
+    public Camera camera;
     public RaycastHit hit;
 
     // Constructor for simple gun generation
@@ -44,12 +44,12 @@ public class Gun : NetworkBehaviour
         // send out a raycast based on camera, factoring in gun spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
-        Vector3 direction = camera.forward + new Vector3(x, y, 0);
+        Vector3 direction = camera.transform.forward + new Vector3(x, y, 0);
         // create a bullet
         GameObject bullet = GameObject.Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         BulletController bulletController = bullet.GetComponent<BulletController>();
         bulletController.dmg = dmg;
-        bulletController.target = (camera.position + direction) * range;
+        bulletController.target = camera.transform.position + direction * range;
         /*if (Physics.Raycast(aim.transform.position, direction, out hit, range))
         { // if it will hit something, set the proper variables in bulletController
             bulletController.target = hit.point;
