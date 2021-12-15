@@ -15,6 +15,8 @@ public class PlayerControllerNetworking: NetworkBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
+    public GameObject pauseMenu;
+
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
@@ -34,7 +36,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             playerCamera.gameObject.SetActive(false);
         }
-        
+
+        // why doesn't unity let me find inactive game objects???? 
+        pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
     }
 
     void Update()
@@ -43,6 +47,13 @@ public class PlayerControllerNetworking: NetworkBehaviour
         if (!isLocalPlayer)
         {
             return;
+        }
+
+        if (Input.GetButton("Pause")) {
+            pauseMenu.SetActive(true);
+            // unlock cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         // We are grounded, so recalculate move direction based on axes

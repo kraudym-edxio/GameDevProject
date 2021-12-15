@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
     */
     void Update()
     {
-        Debug.Log(Input.GetButton("Jump"));
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
