@@ -47,14 +47,15 @@ public class PlayerControllerNetworking: NetworkBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            takeDmg(20);
-        }
-        
         if (!isLocalPlayer)
         {
             return;
+        }
+        
+        //For test purposes, can be changed afterwards to work with gun damage 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TakeDmg(20);
         }
         
         // We are grounded, so recalculate move direction based on axes
@@ -96,10 +97,28 @@ public class PlayerControllerNetworking: NetworkBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
+    
+    public void OnTriggerEnter(Collider Col)
+    {
+        if (Col.gameObject.tag == "health")
+        {
+            IncHealth(20);
+            
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        
+    }
 
-    void takeDmg(int dmg)
+    public void TakeDmg(int dmg)
     {
         currentHealth -= dmg;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    public void IncHealth(int inc)
+    {
+        currentHealth += inc;
         healthBar.SetHealth(currentHealth);
     }
     
