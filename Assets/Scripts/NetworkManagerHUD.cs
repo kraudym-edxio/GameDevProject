@@ -2,6 +2,7 @@
 // confusion if someone accidentally presses one.
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 namespace Mirror
@@ -37,8 +38,16 @@ namespace Mirror
         }
         
         void Update() {
-            if (NetworkClient.isConnected) {
-                lobbyGUI.SetActive(false);
+            try {
+                if (NetworkClient.isConnected) {
+                    lobbyGUI.SetActive(false);
+                    connectingGUI.SetActive(false);
+                    hostJoinGUI.SetActive(true);
+                } else {
+                    lobbyGUI.SetActive(true);
+                }
+            } catch {
+
             }
         }
 
@@ -51,11 +60,14 @@ namespace Mirror
             Button joinBtn = hostJoinGUI.transform
                 .Find("JoinField")
                 .Find("Button").GetComponent<Button>();
-            
 
             var inputServerAddr = hostJoinGUI.transform
                 .Find("JoinField")
                 .Find("InputServerIP").GetComponent<TMP_InputField>();
+
+            Button backBtn = hostJoinGUI.transform
+                .Find("BackButton").GetComponent<Button>();
+            
             
             hostBtn.onClick.AddListener(() => {
                 manager.StartHost();
@@ -68,6 +80,10 @@ namespace Mirror
                 hostJoinGUI.SetActive(false);
                 connectingGUI.SetActive(true);
             });
+
+            backBtn.onClick.AddListener(() => {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+            });
         }
         void ConnectListeners() 
         {
@@ -76,17 +92,22 @@ namespace Mirror
             
             cancelBtn.onClick.AddListener(() => {
                 manager.StopClient();
+                hostJoinGUI.SetActive(true);
+                connectingGUI.SetActive(false);
             });
         }
 
         void PauseListeners()
         {
 
-            Button exitBtn = pauseGUI.transform
+            Button exitMenuBtn = pauseGUI.transform
                 .Find("ExitToMenu").GetComponent<Button>();
             
+            Button exitDesktopBtn = pauseGUI.transform
+                .Find("ExitGame").GetComponent<Button>();
+            
 
-            exitBtn.onClick.AddListener(() => {
+            exitMenuBtn.onClick.AddListener(() => {
                 // stop host if host mode
                 if (NetworkServer.active && NetworkClient.isConnected)
                 {
@@ -100,6 +121,11 @@ namespace Mirror
 
                 pauseGUI.SetActive(false);
                 lobbyGUI.SetActive(true);
+            });
+
+            exitDesktopBtn.onClick.AddListener(() => {
+                Debug.Log("quitting game from pause menu...");
+                Application.Quit();
             });
         }
     }

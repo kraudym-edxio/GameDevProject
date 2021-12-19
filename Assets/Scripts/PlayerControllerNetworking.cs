@@ -46,7 +46,6 @@ public class PlayerControllerNetworking: NetworkBehaviour
         pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
 
         resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
-        quitBtn = pauseMenu.transform.Find("ExitGame").GetComponent<Button>();
 
         resumeBtn.onClick.AddListener(() => {
             pauseMenu.SetActive(false);
@@ -55,12 +54,6 @@ public class PlayerControllerNetworking: NetworkBehaviour
             Cursor.visible = false;
             // can move again
             canMove = true;
-        });
-
-        quitBtn.onClick.AddListener(() => {
-            // either quit the application or go to the main menu... for now I will log and quit
-            Debug.Log("Quitting game with quit button...");
-            Application.Quit();
         });
     }
 
