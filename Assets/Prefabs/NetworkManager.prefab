@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5542599285081460604}
   - component: {fileID: 5542599285081460607}
   - component: {fileID: 5542599285081460606}
-  - component: {fileID: 5542599285081460593}
+  - component: {fileID: 4696864692644956394}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &5542599285081460593
+--- !u!114 &4696864692644956394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5542599285081460592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dcf41111e47f3344aac2114ccae1351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   offsetX: 0

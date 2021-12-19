@@ -18,9 +18,6 @@ public class MenuStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs.SetInt("coinCount", 0);
-        //PlayerPrefs.SetInt("kills", 0);
-
         menuMusic = gameObject.GetComponent<AudioSource>();
 
         volumeSlider.onValueChanged.AddListener((float val) => {

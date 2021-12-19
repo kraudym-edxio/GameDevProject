@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -15,12 +16,18 @@ public class PlayerControllerNetworking: NetworkBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
+
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
     [HideInInspector]
     public bool canMove = true;
+
+    // pause menu
+    public GameObject pauseMenu;
+    private Button resumeBtn;
+    private Button quitBtn;
 
     void Start()
     {
@@ -34,7 +41,20 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             playerCamera.gameObject.SetActive(false);
         }
-        
+
+        // why doesn't unity let me find inactive game objects???? 
+        pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+
+        resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
+
+        resumeBtn.onClick.AddListener(() => {
+            pauseMenu.SetActive(false);
+            // lock mouse again
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            // can move again
+            canMove = true;
+        });
     }
 
     void Update()
@@ -44,7 +64,17 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             return;
         }
-        
+
+        if (Input.GetButton("Pause")) {
+            pauseMenu.SetActive(true);
+            // unlock cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            // player should not be able to be controlled...
+            canMove = false;
+        }
+
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
