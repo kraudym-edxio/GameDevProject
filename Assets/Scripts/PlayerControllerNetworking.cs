@@ -45,8 +45,8 @@ public class PlayerControllerNetworking: NetworkBehaviour
         // why doesn't unity let me find inactive game objects???? 
         pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
 
-        resumeBtn = pauseMenu.transform.Find("ResumeButton").gameObject.GetComponent<Button>();
-        quitBtn = pauseMenu.transform.Find("QuitButton").gameObject.GetComponent<Button>();
+        resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
+        quitBtn = pauseMenu.transform.Find("ExitGame").GetComponent<Button>();
 
         resumeBtn.onClick.AddListener(() => {
             pauseMenu.SetActive(false);
