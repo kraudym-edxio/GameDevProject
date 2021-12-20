@@ -9,6 +9,7 @@ public class GunController : NetworkBehaviour
 {
     // Basic Requirements
     CharacterController characterController;
+    PlayerControllerNetworking pcn;
 
     // Player Gun Variables
     public int gun = 1;
@@ -25,6 +26,7 @@ public class GunController : NetworkBehaviour
 
     private void Start()
     {
+        pcn = GetComponent<PlayerControllerNetworking>();
         Transform beak = beakPrefab.transform;
         // Psuedo-Constructor for Gun: fields you can/should change
         // Gun(int dmg, int bps, int ammo, float dShot, float range, float spread, GameObject bullet)
@@ -67,8 +69,14 @@ public class GunController : NetworkBehaviour
         sniper.bulletSpawn = beak;
     }
 
+    private void Update() {
+        if (pcn.canMove) {
+            ShootCheck();
+        }
+    }
+
     // ********** Player Shooting **********
-    private void Update()
+    private void ShootCheck()
     {
         // Select Gun by pressing 1, 2, 3, or 4.
         if (Input.GetKeyDown(KeyCode.Alpha1))
