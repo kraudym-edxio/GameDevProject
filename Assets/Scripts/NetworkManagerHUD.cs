@@ -16,6 +16,7 @@ namespace Mirror
     {
         NetworkManager manager;
 
+        public bool useLobbyGUI = false;
         public GameObject lobbyGUI;
         public GameObject pauseGUI; // for exiting as server/client
         public GameObject optionsGUI; // in-game options, for now using same options panel as main menu
@@ -33,8 +34,10 @@ namespace Mirror
         {
             manager = GetComponent<NetworkManager>();
 
-            hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
-            connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
+            if (useLobbyGUI) {
+                hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
+                connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
+            }
 
             outerCamera = GameObject.Find("OuterCamera");
         }
@@ -43,12 +46,13 @@ namespace Mirror
         {
             username = PlayerPrefs.GetString("username", "");
 
-            userInput = hostJoinGUI.transform.Find("UsernameInputField").GetComponent<TMP_InputField>();
+            if (useLobbyGUI) {
+                userInput = hostJoinGUI.transform.Find("UsernameInputField").GetComponent<TMP_InputField>();
+                userInput.text = username;
+                HostJoinListeners();
+                ConnectListeners();
+            }
 
-            userInput.text = username;
-
-            HostJoinListeners();
-            ConnectListeners();
             PauseListeners();
             OptionsListeners();
         }
@@ -57,19 +61,26 @@ namespace Mirror
             try {
                 if (NetworkClient.isConnected) {
                     if (runOnce) {
-                        lobbyGUI.SetActive(false);
-                        connectingGUI.SetActive(false);
-                        hostJoinGUI.SetActive(true);
+                        if (useLobbyGUI) {
+                            lobbyGUI.SetActive(false);
+                            connectingGUI.SetActive(false);
+                            hostJoinGUI.SetActive(true);
 
-                        PlayerPrefs.SetString("username", userInput.text);
-                        username = userInput.text;
+                            PlayerPrefs.SetString("username", userInput.text);
+                            username = userInput.text;
 
+                        }
                         runOnce = false;
                     }
                 } else {
                     if (!runOnce) {
-                        lobbyGUI.SetActive(true);
-                        pauseGUI.SetActive(false);
+                        if (useLobbyGUI) {
+                            lobbyGUI.SetActive(true);
+                            pauseGUI.SetActive(false);
+                        } else {
+                            Debug.Log("Disconnected from host, returning to lobby...");
+                            SceneManager.LoadScene("Lobby");
+                        }
                         runOnce = true;
                     }
                 }

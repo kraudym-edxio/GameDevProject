@@ -6,6 +6,7 @@ TagManager:
   tags:
   - health
   - SpawnPoint
+  - hasAudio
   layers:
   - Default
   - TransparentFX

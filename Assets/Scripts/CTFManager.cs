@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Team {
     Red,
@@ -34,12 +35,13 @@ public class CTFManager : MonoBehaviour
 
     // entry point for capture the flag. 
     // required data for CTF
-    public GameObject lobby;
-    public GameObject[] levels;     // level prefabs to instantiate
-    public int currLevelIndex = 0;
+    public int currLevelIndex = 1;
 
     // method to call that starts ctf
-    public static void StartCTF() {
+    public void StartCTF() {
         Debug.Log("starting capture the flag match...");
+        SceneManager.LoadScene($"Level_0{currLevelIndex}");
+        currLevelIndex++;
+        if (currLevelIndex==4) currLevelIndex=1;
     }
 }

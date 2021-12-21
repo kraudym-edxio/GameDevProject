@@ -154,7 +154,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         }
         else if (Col.gameObject.name == "StartFlag") 
         {
-            CTFManager.StartCTF();
+            GameObject.Find("NetworkManager").GetComponent<CTFManager>().StartCTF();
         }
         
     }
