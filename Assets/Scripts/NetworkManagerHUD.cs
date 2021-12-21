@@ -18,9 +18,13 @@ namespace Mirror
 
         public GameObject lobbyGUI;
         public GameObject pauseGUI; // for exiting as server/client
+        public string username;
 
         private GameObject hostJoinGUI;
+        private TMP_InputField userInput;
         private GameObject connectingGUI;
+
+        private bool runOnce = true;
 
         void Awake()
         {
@@ -32,6 +36,12 @@ namespace Mirror
 
         void Start()
         {
+            username = PlayerPrefs.GetString("username", "");
+
+            userInput = hostJoinGUI.transform.Find("UsernameInputField").GetComponent<TMP_InputField>();
+
+            userInput.text = username;
+
             HostJoinListeners();
             ConnectListeners();
             PauseListeners();
@@ -40,11 +50,21 @@ namespace Mirror
         void Update() {
             try {
                 if (NetworkClient.isConnected) {
-                    lobbyGUI.SetActive(false);
-                    connectingGUI.SetActive(false);
-                    hostJoinGUI.SetActive(true);
+                    if (runOnce) {
+                        lobbyGUI.SetActive(false);
+                        connectingGUI.SetActive(false);
+                        hostJoinGUI.SetActive(true);
+
+                        PlayerPrefs.SetString("username", userInput.text);
+                        username = userInput.text;
+
+                        runOnce = false;
+                    }
                 } else {
-                    lobbyGUI.SetActive(true);
+                    if (!runOnce) {
+                        lobbyGUI.SetActive(true);
+                        runOnce = true;
+                    }
                 }
             } catch {
 

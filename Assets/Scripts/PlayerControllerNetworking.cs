@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
-
 public class PlayerControllerNetworking: NetworkBehaviour
 {
     public float walkingSpeed = 7.5f;
