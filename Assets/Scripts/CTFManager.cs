@@ -9,8 +9,6 @@ public enum Team {
 
 public class CTFManager : MonoBehaviour
 {
-    public GameObject redTeamChicken;
-    public GameObject blueTeamChicken;
     // Start is called before the first frame update
 
     public static HashSet<int> chosenSpawnPoints = new HashSet<int>();
@@ -36,7 +34,9 @@ public class CTFManager : MonoBehaviour
 
     // entry point for capture the flag. 
     // required data for CTF
+    public GameObject lobby;
     public GameObject[] levels;     // level prefabs to instantiate
+    public int currLevelIndex = 0;
 
     // method to call that starts ctf
     public static void StartCTF() {
