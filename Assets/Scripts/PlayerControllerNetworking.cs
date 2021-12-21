@@ -23,6 +23,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
     [HideInInspector]
     public bool canMove = true;
 
+    public HealthBar healthBar;
+    public int maxHealth = 100;
+    public int currentHealth;
     // pause menu
     public GameObject pauseMenu;
     private Button resumeBtn;
@@ -30,6 +33,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
     void Start()
     {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
@@ -63,6 +69,13 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             return;
         }
+        
+        //For test purposes, can be changed afterwards to work with gun damage 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TakeDmg(20);
+        }
+        
 
         if (Input.GetButton("Pause")) {
             pauseMenu.SetActive(true);
@@ -113,4 +126,29 @@ public class PlayerControllerNetworking: NetworkBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
+    
+    public void OnTriggerEnter(Collider Col)
+    {
+        if (Col.gameObject.tag == "health")
+        {
+            IncHealth(20);
+            
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        
+    }
+
+    public void TakeDmg(int dmg)
+    {
+        currentHealth -= dmg;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    public void IncHealth(int inc)
+    {
+        currentHealth += inc;
+        healthBar.SetHealth(currentHealth);
+    }
+    
 }
