@@ -20,7 +20,11 @@ public class MenuStart : MonoBehaviour
     {
         menuMusic = gameObject.GetComponent<AudioSource>();
 
+        volumeSlider.value = PlayerPrefs.GetFloat("masterVolume", 1);
+        menuMusic.volume = volumeSlider.value;
+
         volumeSlider.onValueChanged.AddListener((float val) => {
+            PlayerPrefs.SetFloat("masterVolume", val);
             menuMusic.volume = val;
         });
 

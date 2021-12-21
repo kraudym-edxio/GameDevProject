@@ -63,6 +63,7 @@ namespace Mirror
                 } else {
                     if (!runOnce) {
                         lobbyGUI.SetActive(true);
+                        pauseGUI.SetActive(false);
                         runOnce = true;
                     }
                 }

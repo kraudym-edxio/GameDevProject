@@ -58,6 +58,14 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
     void Update()
     {
+        if (!NetworkClient.isConnected && canMove) {
+            // unlock cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            // player should not be able to be controlled...
+            canMove = false;
+        } 
 
         if (!isLocalPlayer)
         {
