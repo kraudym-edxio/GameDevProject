@@ -17,7 +17,7 @@ public class GunController : NetworkBehaviour
     [SerializeField] public GameObject cornPrefab; // SMG gun 2 = corn
     [SerializeField] public GameObject grainPrefab; // shotgun gun 3 = grains
     [SerializeField] public GameObject sunSeedPrefab; // sniper gun 4 = sunflower seeds
-    [SerializeField] public Camera camera;
+    [SerializeField] public Camera cam;
     [SerializeField] public GameObject beakPrefab;
     public Gun pistol;
     public Gun smg;
@@ -36,7 +36,7 @@ public class GunController : NetworkBehaviour
         pistol.dmg = 25;
         pistol.spread = 0.02f;
         pistol.bulletPrefab = peaPrefab;
-        pistol.camera = camera;
+        pistol.cam = cam;
         pistol.bulletSpawn = beak;
         
         // SMG
@@ -45,7 +45,7 @@ public class GunController : NetworkBehaviour
         smg.ammo = 20;
         smg.deltaShot = 0.3f;
         smg.bulletPrefab = cornPrefab;
-        smg.camera = camera;
+        smg.cam = cam;
         smg.bulletSpawn = beak;
         
         // SHOTGUN
@@ -56,7 +56,7 @@ public class GunController : NetworkBehaviour
         shotgun.deltaShot = 2;
         shotgun.spread = 0.06f;
         shotgun.bulletPrefab = grainPrefab;
-        shotgun.camera = camera;
+        shotgun.cam = cam;
         shotgun.bulletSpawn = beak;
         
         // SNIPER
@@ -65,7 +65,7 @@ public class GunController : NetworkBehaviour
         sniper.deltaShot = 4;
         sniper.range = 100;
         sniper.bulletPrefab = sunSeedPrefab;
-        sniper.camera = camera;
+        sniper.cam = cam;
         sniper.bulletSpawn = beak;
     }
 
