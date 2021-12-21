@@ -152,6 +152,10 @@ public class PlayerControllerNetworking: NetworkBehaviour
             Col.gameObject.SetActive(false);
             Destroy(Col.gameObject);
         }
+        else if (Col.gameObject.name == "StartFlag") 
+        {
+            CTFManager.StartCTF();
+        }
         
     }
 

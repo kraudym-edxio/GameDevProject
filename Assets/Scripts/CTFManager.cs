@@ -33,4 +33,13 @@ public class CTFManager : MonoBehaviour
         chosenSpawnPoints.Add(randIndex);
         return spawnPoints[randIndex].transform;
     }
+
+    // entry point for capture the flag. 
+    // required data for CTF
+    public GameObject[] levels;     // level prefabs to instantiate
+
+    // method to call that starts ctf
+    public static void StartCTF() {
+        Debug.Log("starting capture the flag match...");
+    }
 }
