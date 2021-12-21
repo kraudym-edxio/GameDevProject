@@ -200,6 +200,7 @@ Transform:
   - {fileID: 2489624638535377048}
   - {fileID: 5077856202156829189}
   - {fileID: 480782225532081969}
+  - {fileID: 5402302051480060939}
   - {fileID: 2491582093270857190}
   - {fileID: 8314112604025763517}
   m_Father: {fileID: 0}
@@ -364,6 +365,9 @@ MonoBehaviour:
   lookSpeed: 3
   lookXLimit: 75
   canMove: 1
+  healthBar: {fileID: 7563382544670543930}
+  maxHealth: 100
+  currentHealth: 0
   pauseMenu: {fileID: 0}
 --- !u!114 &2281508030716840610
 MonoBehaviour:
@@ -449,7 +453,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTeam: 0
-  playerPrefab: {fileID: 0}
 --- !u!1 &2493008700413267690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,7 +1006,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2491336495091005646}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3663797355727973763
 SkinnedMeshRenderer:
@@ -1105,7 +1108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2491336495091005646}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4810429132649236858
 SkinnedMeshRenderer:
