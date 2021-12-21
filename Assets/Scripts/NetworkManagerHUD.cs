@@ -18,6 +18,7 @@ namespace Mirror
 
         public GameObject lobbyGUI;
         public GameObject pauseGUI; // for exiting as server/client
+        public GameObject optionsGUI; // in-game options, for now using same options panel as main menu
         public string username;
 
         private GameObject hostJoinGUI;
@@ -49,6 +50,7 @@ namespace Mirror
             HostJoinListeners();
             ConnectListeners();
             PauseListeners();
+            OptionsListeners();
         }
         
         void Update() {
@@ -125,12 +127,19 @@ namespace Mirror
         void PauseListeners()
         {
 
+            Button optionsBtn = pauseGUI.transform
+                .Find("OptionsButton").GetComponent<Button>();
+
             Button exitMenuBtn = pauseGUI.transform
                 .Find("ExitToMenu").GetComponent<Button>();
             
             Button exitDesktopBtn = pauseGUI.transform
                 .Find("ExitGame").GetComponent<Button>();
             
+            optionsBtn.onClick.AddListener(() => {
+                pauseGUI.SetActive(false);
+                optionsGUI.SetActive(true);
+            });
 
             exitMenuBtn.onClick.AddListener(() => {
                 // stop host if host mode
@@ -154,6 +163,15 @@ namespace Mirror
                 Debug.Log("quitting game from pause menu...");
                 Application.Quit();
             });
+        }
+
+        void OptionsListeners()
+        {
+           Button backBtn = optionsGUI.transform.Find("BackButton").GetComponent<Button>(); 
+           backBtn.onClick.AddListener(() => {
+               optionsGUI.SetActive(false);
+               pauseGUI.SetActive(true);
+           });
         }
     }
 }
