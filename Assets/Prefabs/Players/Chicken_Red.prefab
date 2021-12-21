@@ -173,6 +173,8 @@ GameObject:
   - component: {fileID: 4466227933393002635}
   - component: {fileID: 5983463804736475878}
   - component: {fileID: 2281508030716840610}
+  - component: {fileID: 2493950778747645948}
+  - component: {fileID: 2493950778747645949}
   m_Layer: 0
   m_Name: Chicken_Red
   m_TagString: Player
@@ -260,52 +262,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2492992644077190592}
   m_Mesh: {fileID: 4300000, guid: d623cd35a78380d4eb0457c4e483abed, type: 3}
---- !u!114 &2493950778747645949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2492992644077190592}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6126c3e79d72911408dfa90e5c2577c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 2
-  jumpHeight: 1
-  gravityValue: -9.81
-  rotationSpeed: 5
---- !u!114 &2493950778747645948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2492992644077190592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 2eede6893b0bcef4c9350aaa9c7dfd1e, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &1492871681992099512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,6 +362,7 @@ MonoBehaviour:
   lookSpeed: 3
   lookXLimit: 75
   canMove: 1
+  pauseMenu: {fileID: 0}
 --- !u!114 &2281508030716840610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,12 +382,58 @@ MonoBehaviour:
   cornPrefab: {fileID: 2643336018903559669, guid: c8932bd085ddeaa4ea3c5e746c925584, type: 3}
   grainPrefab: {fileID: 7488599849025497149, guid: 3998fabfe65f4244db3f7400bfa4b8d9, type: 3}
   sunSeedPrefab: {fileID: 5247463454208115816, guid: 22e4d5bda9c28e542a381706094be44a, type: 3}
-  camera: {fileID: 5077856202156829189}
+  cam: {fileID: 5077856202156829186}
   beakPrefab: {fileID: 381990546316094691}
   pistol: {fileID: 0}
   smg: {fileID: 0}
   shotgun: {fileID: 0}
   sniper: {fileID: 0}
+--- !u!114 &2493950778747645948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492992644077190592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2eede6893b0bcef4c9350aaa9c7dfd1e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &2493950778747645949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492992644077190592}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6126c3e79d72911408dfa90e5c2577c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 2
+  jumpHeight: 1
+  gravityValue: -9.81
+  rotationSpeed: 5
 --- !u!1 &2493008700413267690
 GameObject:
   m_ObjectHideFlags: 0
