@@ -31,6 +31,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     private Button resumeBtn;
     private Button quitBtn;
 
+    private GameObject outerCamera;
     void Start()
     {
         currentHealth = maxHealth;
@@ -46,6 +47,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             playerCamera.gameObject.SetActive(false);
         }
+
+        // disable outer camera
+
+        outerCamera = GameObject.Find("OuterCamera");
+        outerCamera.SetActive(false);
 
         // why doesn't unity let me find inactive game objects???? 
         pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
@@ -71,6 +77,8 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
             // player should not be able to be controlled...
             canMove = false;
+
+            outerCamera.SetActive(true);
         } 
 
         if (!isLocalPlayer)

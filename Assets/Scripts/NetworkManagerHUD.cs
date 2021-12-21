@@ -26,12 +26,16 @@ namespace Mirror
 
         private bool runOnce = true;
 
+        private GameObject outerCamera;
+
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
 
             hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
             connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
+
+            outerCamera = GameObject.Find("OuterCamera");
         }
 
         void Start()
@@ -139,6 +143,8 @@ namespace Mirror
                 {
                     manager.StopClient();
                 }
+
+                outerCamera.SetActive(true);
 
                 pauseGUI.SetActive(false);
                 lobbyGUI.SetActive(true);
