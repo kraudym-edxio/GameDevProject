@@ -12,22 +12,25 @@ public class CTFManager : MonoBehaviour
     public GameObject redTeamChicken;
     public GameObject blueTeamChicken;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public static HashSet<int> chosenSpawnPoints = new HashSet<int>();
     public static Transform GetRandomSpawnLocation() {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
         int randIndex = Random.Range(0, spawnPoints.Length);
-
+        
+        // find spawn point that hasn't been used after picking randomly. 
+        int temp = randIndex;
+        while (chosenSpawnPoints.Contains(temp)) {
+            temp++;
+            if (temp == randIndex) {
+                break;
+            } else if (temp == spawnPoints.Length) {
+                temp = 0;
+            }
+        }
+        randIndex = temp;
+        chosenSpawnPoints.Add(randIndex);
         return spawnPoints[randIndex].transform;
     }
 }

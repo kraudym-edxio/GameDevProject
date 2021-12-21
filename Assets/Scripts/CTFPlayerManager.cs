@@ -8,7 +8,6 @@ public class CTFPlayerManager : MonoBehaviour
 
     public Team playerTeam;
 
-
     void Start() {
         // check if teams are unbalanced: if so balance by choosing team with lowest player count
         int redCount = 0;
