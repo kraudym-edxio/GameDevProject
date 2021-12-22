@@ -9,6 +9,8 @@ TagManager:
   - hasAudio
   - RedSpawnPoint
   - BlueSpawnPoint
+  - BlueFlagSpawn
+  - RedFlagSpawn
   layers:
   - Default
   - TransparentFX

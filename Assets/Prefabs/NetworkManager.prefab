@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4696864692644956394}
   - component: {fileID: 1958675661993505555}
   - component: {fileID: 2503991443475668776}
+  - component: {fileID: 1774059650126559920}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcf41111e47f3344aac2114ccae1351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useLobbyGUI: 0
   lobbyGUI: {fileID: 0}
   pauseGUI: {fileID: 0}
   optionsGUI: {fileID: 0}
@@ -128,7 +130,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c36a0bea2ab7f43a5f026ffaca05aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 1207260157089909047, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
-  - {fileID: 3335823568675995097, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
-  - {fileID: 5530256203860434289, guid: 98ba753aebc941549a27d927da825ecf, type: 3}
+  syncMode: 0
+  syncInterval: 0.1
+  redFlag: {fileID: 6828250182626500406, guid: a8e76495f6c813743b5efafd1f260875, type: 3}
+  blueFlag: {fileID: 6828250182626500406, guid: d526f0049c0ebcd48ae70ccfa46e2950, type: 3}
+  currLevelIndex: 2
+  inGame: 0
+  redWins: 0
+  blueWins: 0
+--- !u!114 &1774059650126559920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542599285081460592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 2d0ffed690eaac341884ca963ceb93e3
+  hasSpawned: 0
