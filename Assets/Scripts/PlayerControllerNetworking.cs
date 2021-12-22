@@ -48,7 +48,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         // disable outer camera
 
-        outerCamera = GameObject.Find("/OuterCamera");
+        outerCamera = transform.Find("/OuterCamera").gameObject;
         outerCamera.SetActive(false);
 
         // why doesn't unity let me find inactive game objects???? 
@@ -58,16 +58,16 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         if (!NetworkClient.isConnected && canMove) {
             LockPlayer(true);
 
             outerCamera.SetActive(true);
         } 
 
-        if (!isLocalPlayer)
-        {
-            return;
-        }
         
         //For test purposes, can be changed afterwards to work with gun damage 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -135,7 +135,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         }
         else if (Col.gameObject.name == "StartFlag") 
         {
-            GameObject.Find("NetworkManager").GetComponent<CTFManager>().StartCTF();
+            GameObject.Find("/NetworkManager").GetComponent<CTFManager>().StartCTF();
         }
         
     }
@@ -163,7 +163,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     }
 
     public void SetPosition() {
-        var pos = CTFManager.GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
+        var pos = GameObject.Find("/NetworkManager").GetComponent<CTFManager>().GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
 
         // character controller messes up teleporting, disable then move then re-enable.
         //https://forum.unity.com/threads/unity-multiplayer-through-mirror-teleporting-player-inconsistent.867079/

@@ -5,16 +5,17 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 public enum Team {
+    None,
     Red,
     Blue
 }
 
-public class CTFManager : MonoBehaviour
+public class CTFManager : NetworkBehaviour 
 {
-    // Start is called before the first frame update
+    public HashSet<int> chosenSpawnPoints = new HashSet<int>();
 
-    public static HashSet<int> chosenSpawnPoints = new HashSet<int>();
-    public static Transform GetRandomSpawnLocation(bool useTeamSpawn=false, Team t=Team.Red) {
+
+    public Transform GetRandomSpawnLocation(bool useTeamSpawn=false, Team t=Team.Red) {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if (useTeamSpawn) {
             if (t == Team.Red) {
