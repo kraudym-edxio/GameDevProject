@@ -7,7 +7,8 @@ using Mirror;
 public enum Team {
     None,
     Red,
-    Blue
+    Blue,
+    Error
 }
 
 public class CTFManager : NetworkBehaviour 

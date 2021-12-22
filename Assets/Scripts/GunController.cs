@@ -10,6 +10,7 @@ public class GunController : NetworkBehaviour
     // Basic Requirements
     CharacterController characterController;
     PlayerControllerNetworking pcn;
+    private CTFPlayerManager pm;
 
     // Player Gun Variables
     public int gun = 1;
@@ -27,7 +28,21 @@ public class GunController : NetworkBehaviour
     private void Start()
     {
         pcn = GetComponent<PlayerControllerNetworking>();
+        pm = GetComponent<CTFPlayerManager>();
         Transform beak = beakPrefab.transform;
+        Team enemy;
+        if (pm.playerTeam == Team.Red)
+        {
+            enemy = Team.Blue;
+        } else if (pm.playerTeam == Team.Blue)
+        {
+            enemy = Team.Red;
+        }
+        else
+        {
+            enemy = Team.Error;
+        }
+        
         // Psuedo-Constructor for Gun: fields you can/should change
         // Gun(int dmg, int bps, int ammo, float dShot, float range, float spread, GameObject bullet)
         
@@ -38,6 +53,7 @@ public class GunController : NetworkBehaviour
         pistol.bulletPrefab = peaPrefab;
         pistol.cam = cam;
         pistol.bulletSpawn = beak;
+        pistol.enemy = enemy;
         
         // SMG
         smg = gameObject.AddComponent<Gun>();
@@ -47,6 +63,7 @@ public class GunController : NetworkBehaviour
         smg.bulletPrefab = cornPrefab;
         smg.cam = cam;
         smg.bulletSpawn = beak;
+        smg.enemy = enemy;
         
         // SHOTGUN
         shotgun = gameObject.AddComponent<Gun>();
@@ -54,10 +71,12 @@ public class GunController : NetworkBehaviour
         shotgun.bps = 6;
         shotgun.ammo = 12;
         shotgun.deltaShot = 2;
-        shotgun.spread = 0.06f;
+        shotgun.spread = 0.1f;
+        shotgun.range = 40;
         shotgun.bulletPrefab = grainPrefab;
         shotgun.cam = cam;
         shotgun.bulletSpawn = beak;
+        shotgun.enemy = enemy;
         
         // SNIPER
         sniper = gameObject.AddComponent<Gun>();
@@ -67,6 +86,7 @@ public class GunController : NetworkBehaviour
         sniper.bulletPrefab = sunSeedPrefab;
         sniper.cam = cam;
         sniper.bulletSpawn = beak;
+        sniper.enemy = enemy;
     }
 
     private void Update() {
