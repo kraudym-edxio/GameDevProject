@@ -9,6 +9,7 @@ public class CTFPlayerManager : MonoBehaviour
     public Team playerTeam;
 
     void Start() {
+        DontDestroyOnLoad(gameObject);
         // check if teams are unbalanced: if so balance by choosing team with lowest player count
         int redCount = 0;
         int blueCount = 0;
@@ -44,5 +45,6 @@ public class CTFPlayerManager : MonoBehaviour
                 break;
         }
         transform.position = CTFManager.GetRandomSpawnLocation().position;
+        Debug.Log(transform.position);
     }
 }

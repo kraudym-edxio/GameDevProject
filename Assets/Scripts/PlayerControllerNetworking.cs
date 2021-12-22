@@ -54,18 +54,8 @@ public class PlayerControllerNetworking: NetworkBehaviour
         outerCamera.SetActive(false);
 
         // why doesn't unity let me find inactive game objects???? 
-        pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+        SetPauseMenu();
 
-        resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
-
-        resumeBtn.onClick.AddListener(() => {
-            pauseMenu.SetActive(false);
-            // lock mouse again
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            // can move again
-            canMove = true;
-        });
     }
 
     void Update()
@@ -94,7 +84,14 @@ public class PlayerControllerNetworking: NetworkBehaviour
         
 
         if (Input.GetButton("Pause")) {
-            pauseMenu.SetActive(true);
+            // bad code but it works
+            try {
+                pauseMenu.SetActive(true);
+            } catch (MissingReferenceException e) {
+                Debug.Log(e);
+                SetPauseMenu();
+                pauseMenu.SetActive(true);
+            }
             // unlock cursor
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -141,6 +138,8 @@ public class PlayerControllerNetworking: NetworkBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
+
+        Debug.Log(transform.position);
     }
     
     public void OnTriggerEnter(Collider Col)
@@ -171,4 +170,27 @@ public class PlayerControllerNetworking: NetworkBehaviour
         healthBar.SetHealth(currentHealth);
     }
     
+    public void SetPauseMenu() {
+        pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+        resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
+
+        resumeBtn.onClick.AddListener(() => {
+            pauseMenu.SetActive(false);
+            // lock mouse again
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            // can move again
+            canMove = true;
+        });
+    }
+
+    public void SetPosition() {
+        var pos = CTFManager.GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
+
+        // character controller messes up teleporting, disable then move then re-enable.
+        //https://forum.unity.com/threads/unity-multiplayer-through-mirror-teleporting-player-inconsistent.867079/
+        GetComponent<CharacterController>().enabled = false;
+        transform.position = pos;
+        GetComponent<CharacterController>().enabled = true;
+    }
 }
