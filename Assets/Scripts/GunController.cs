@@ -136,4 +136,12 @@ public class GunController : NetworkBehaviour
             smg.Shoot();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ammo"))
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
 }

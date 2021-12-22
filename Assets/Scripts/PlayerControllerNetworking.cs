@@ -145,12 +145,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     
     public void OnTriggerEnter(Collider Col)
     {
-        if (Col.gameObject.tag == "ammo")
-        {
-
-            Col.gameObject.SetActive(false);
-            Destroy(Col.gameObject);
-        }
+        
 
         if (Col.gameObject.tag == "health")
         {
