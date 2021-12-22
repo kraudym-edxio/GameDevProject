@@ -22,13 +22,13 @@ public class BulletController : NetworkBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         // if we hit an enemy, do damage to the enemy
-        if (other.gameObject.GetComponent<CTFPlayerManager>().playerTeam == enemy)
+        if (other.CompareTag("Player") && other.GetComponent<CTFPlayerManager>().playerTeam == enemy)
         {
             // do damage to enemy
-            other.gameObject.GetComponent<PlayerControllerNetworking>().TakeDmg(dmg);
+            other.GetComponent<PlayerControllerNetworking>().TakeDmg(dmg);
         }
         Destroy(gameObject);
     }
