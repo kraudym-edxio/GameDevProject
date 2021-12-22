@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum Team {
     Red,
-    Blue
+    Blue,
+    Error
 }
 
 public class CTFManager : MonoBehaviour
