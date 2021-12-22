@@ -35,8 +35,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
     private Button quitBtn;
 
     private GameObject outerCamera;
+
+    private CTFManager ctfMan;
     void Start()
     {
+        ctfMan = GameObject.Find("/NetworkManager").transform.Find("CTFManager").GetComponent<CTFManager>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         
@@ -138,7 +141,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         }
         else if (Col.gameObject.name == "StartFlag") 
         {
-            GameObject.Find("/NetworkManager").GetComponent<CTFManager>().StartCTF();
+            ctfMan.StartCTF();
         }
         else if (Col.gameObject.tag == "RedFlag")
         {
@@ -157,7 +160,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         else if (Col.gameObject.tag == "RedArea")
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red && hasFlag) {
-                GameObject.Find("/NetworkManager").GetComponent<CTFManager>().chosenSpawnPoints = new HashSet<int>();
+                ctfMan.chosenSpawnPoints = new HashSet<int>();
                 foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
                     var pcn = g.GetComponent<PlayerControllerNetworking>();
                     pcn.hasFlag = false;
@@ -169,7 +172,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         else if (Col.gameObject.tag == "BlueArea")
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue && hasFlag) {
-                GameObject.Find("/NetworkManager").GetComponent<CTFManager>().chosenSpawnPoints = new HashSet<int>();
+                ctfMan.chosenSpawnPoints = new HashSet<int>();
                 foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
                     var pcn = g.GetComponent<PlayerControllerNetworking>();
                     pcn.hasFlag = false;
@@ -202,7 +205,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     }
 
     public void SetPosition() {
-        var pos = GameObject.Find("/NetworkManager").GetComponent<CTFManager>().GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
+        var pos = ctfMan.GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
 
         // character controller messes up teleporting, disable then move then re-enable.
         //https://forum.unity.com/threads/unity-multiplayer-through-mirror-teleporting-player-inconsistent.867079/

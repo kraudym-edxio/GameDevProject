@@ -71,7 +71,7 @@ public class CTFManager : NetworkBehaviour
                 g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPosition");
             }
 
-            var nmh = gameObject.GetComponent<NetworkManagerHUD>();
+            var nmh = GameObject.Find("/NetworkManager").GetComponent<NetworkManagerHUD>();
             nmh.useLobbyGUI = false;
             nmh.SendMessage("SetHUD");
             

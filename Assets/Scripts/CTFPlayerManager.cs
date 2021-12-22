@@ -54,7 +54,7 @@ public class CTFPlayerManager : NetworkBehaviour
                 transform.Find("BlueChicken").gameObject.SetActive(true);
                 break;
         }
-        transform.position = GameObject.Find("/NetworkManager").GetComponent<CTFManager>().GetRandomSpawnLocation().position;
+        transform.position = GameObject.Find("/NetworkManager/CTFManager").GetComponent<CTFManager>().GetRandomSpawnLocation().position;
         Debug.Log(transform.position);
     }
 }
