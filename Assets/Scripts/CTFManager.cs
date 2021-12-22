@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 public enum Team {
     Red,
@@ -70,7 +71,16 @@ public class CTFManager : MonoBehaviour
                 g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPauseMenu");
                 g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPosition");
             }
+
+            var nmh = gameObject.GetComponent<NetworkManagerHUD>();
+            nmh.useLobbyGUI = false;
+            nmh.SendMessage("SetHUD");
         }
 
+    }
+
+    public static void DestroyNM() {
+        Debug.Log("destroying nm?");
+        Destroy(GameObject.Find("NetworkManager"));
     }
 }

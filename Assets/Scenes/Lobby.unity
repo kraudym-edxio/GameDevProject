@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5542599285081460592, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5542599285081460604, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -776,18 +780,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1324326739 stripped
+--- !u!1 &1657968285
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5542599285081460592, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
-  m_PrefabInstance: {fileID: 522274789}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1324326744
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1657968286}
+  - component: {fileID: 1657968287}
+  m_Layer: 0
+  m_Name: LobbyMusic
+  m_TagString: hasAudio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1657968286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657968285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.20302618, y: 13.489296, z: -36.872707}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1657968287
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324326739}
+  m_GameObject: {fileID: 1657968285}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}

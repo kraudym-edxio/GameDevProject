@@ -139,7 +139,6 @@ public class PlayerControllerNetworking: NetworkBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
-        Debug.Log(transform.position);
     }
     
     public void OnTriggerEnter(Collider Col)

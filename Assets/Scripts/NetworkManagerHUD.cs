@@ -33,6 +33,17 @@ namespace Mirror
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
+        }
+
+        void Start() {
+            SetHUD();
+        }
+
+        void SetHUD()
+        {
+            // used on new scene loads, for lobby is assigned in editor
+            pauseGUI = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+            optionsGUI = GameObject.Find("Canvas").transform.Find("OptionsMenu").gameObject;
 
             if (useLobbyGUI) {
                 hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
@@ -40,10 +51,6 @@ namespace Mirror
             }
 
             outerCamera = GameObject.Find("OuterCamera");
-        }
-
-        void Start()
-        {
             username = PlayerPrefs.GetString("username", "");
 
             if (useLobbyGUI) {
@@ -120,7 +127,8 @@ namespace Mirror
             });
 
             backBtn.onClick.AddListener(() => {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+                SceneManager.LoadScene("Menu");
+                Destroy(gameObject);
             });
         }
         void ConnectListeners() 
@@ -164,10 +172,16 @@ namespace Mirror
                     manager.StopClient();
                 }
 
-                outerCamera.SetActive(true);
+                Debug.Log("exit?");
+                if (useLobbyGUI) {
+                    outerCamera.SetActive(true);
 
-                pauseGUI.SetActive(false);
-                lobbyGUI.SetActive(true);
+                    pauseGUI.SetActive(false);
+                    lobbyGUI.SetActive(true);
+                } else {
+                    CTFManager.DestroyNM();
+                    SceneManager.LoadScene("Lobby");
+                }
             });
 
             exitDesktopBtn.onClick.AddListener(() => {
