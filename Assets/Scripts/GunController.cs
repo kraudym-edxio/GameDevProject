@@ -90,6 +90,12 @@ public class GunController : NetworkBehaviour
     }
 
     private void Update() {
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        
         if (pcn.canMove) {
             ShootCheck();
         }

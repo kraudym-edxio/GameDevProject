@@ -25,7 +25,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
     public HealthBar healthBar;
     public int maxHealth = 100;
-    public int currentHealth;
+    [SyncVar] public int currentHealth;
     // pause menu
     public GameObject pauseMenu;
     private Button resumeBtn;
