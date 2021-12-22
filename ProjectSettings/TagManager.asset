@@ -11,6 +11,8 @@ TagManager:
   - BlueSpawnPoint
   - BlueFlagSpawn
   - RedFlagSpawn
+  - BlueFlag
+  - RedFlag
   layers:
   - Default
   - TransparentFX

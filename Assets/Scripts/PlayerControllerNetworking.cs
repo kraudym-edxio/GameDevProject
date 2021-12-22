@@ -26,6 +26,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
     public HealthBar healthBar;
     public int maxHealth = 100;
     public int currentHealth;
+
+    [SyncVar]
+    public bool hasFlag = false;
     // pause menu
     public GameObject pauseMenu;
     private Button resumeBtn;
@@ -137,7 +140,20 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             GameObject.Find("/NetworkManager").GetComponent<CTFManager>().StartCTF();
         }
-        
+        else if (Col.gameObject.tag == "RedFlag")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue) {
+                Destroy(Col.gameObject);
+                hasFlag = true;
+            }
+        }
+        else if (Col.gameObject.tag == "BlueFlag")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red) {
+                Destroy(Col.gameObject);
+                hasFlag = true;
+            }
+        }
     }
 
     public void TakeDmg(int dmg)
