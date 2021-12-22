@@ -1195,6 +1195,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 78180998}
     m_Modifications:
+    - target: {fileID: 1205888074421436920, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205888074421436920, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2218057730137196521, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -1221,11 +1229,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7620548854098518371, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1254
+      value: 1093
       objectReference: {fileID: 0}
     - target: {fileID: 7620548854098518371, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 122
+      value: 212
       objectReference: {fileID: 0}
     - target: {fileID: 7898909430391043403, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: sceneId

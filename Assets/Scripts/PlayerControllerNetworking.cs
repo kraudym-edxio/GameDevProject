@@ -34,6 +34,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     private GameObject outerCamera;
     void Start()
     {
+        healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         
