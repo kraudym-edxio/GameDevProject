@@ -81,8 +81,4 @@ public class CTFManager : MonoBehaviour
 
     }
 
-    public static void DestroyNM() {
-        Debug.Log("destroying nm?");
-        Destroy(GameObject.Find("NetworkManager"));
-    }
 }

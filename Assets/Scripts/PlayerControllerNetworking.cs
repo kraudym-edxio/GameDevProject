@@ -39,9 +39,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         
         characterController = GetComponent<CharacterController>();
 
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockPlayer(false);
 
         if (!isLocalPlayer)
         {
@@ -50,7 +48,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         // disable outer camera
 
-        outerCamera = GameObject.Find("OuterCamera");
+        outerCamera = GameObject.Find("/OuterCamera");
         outerCamera.SetActive(false);
 
         // why doesn't unity let me find inactive game objects???? 
@@ -61,12 +59,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     void Update()
     {
         if (!NetworkClient.isConnected && canMove) {
-            // unlock cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            // player should not be able to be controlled...
-            canMove = false;
+            LockPlayer(true);
 
             outerCamera.SetActive(true);
         } 
@@ -85,19 +78,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         if (Input.GetButton("Pause")) {
             // bad code but it works
-            try {
-                pauseMenu.SetActive(true);
-            } catch (MissingReferenceException e) {
-                Debug.Log(e);
-                SetPauseMenu();
-                pauseMenu.SetActive(true);
-            }
-            // unlock cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            // player should not be able to be controlled...
-            canMove = false;
+            SetPauseMenu();
+            pauseMenu.SetActive(true);
+            LockPlayer(true);
         }
 
         // We are grounded, so recalculate move direction based on axes
@@ -175,11 +158,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         resumeBtn.onClick.AddListener(() => {
             pauseMenu.SetActive(false);
-            // lock mouse again
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            // can move again
-            canMove = true;
+            LockPlayer(false);
         });
     }
 
@@ -191,5 +170,13 @@ public class PlayerControllerNetworking: NetworkBehaviour
         GetComponent<CharacterController>().enabled = false;
         transform.position = pos;
         GetComponent<CharacterController>().enabled = true;
+    }
+
+    public void LockPlayer(bool isLock) {
+            // lock mouse again
+            Cursor.lockState = isLock ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = isLock;
+            // can move again
+            canMove = !isLock;
     }
 }
