@@ -20,6 +20,10 @@ namespace Mirror
         public GameObject lobbyGUI;
         public GameObject pauseGUI; // for exiting as server/client
         public GameObject optionsGUI; // in-game options, for now using same options panel as main menu
+        public GameObject playerGUI;
+        [SerializeField] public TMP_Text displayUser;
+        
+        
         public string username;
 
         private GameObject hostJoinGUI;

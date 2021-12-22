@@ -387,6 +387,10 @@ MonoBehaviour:
   cornPrefab: {fileID: 2643336018903559669, guid: c8932bd085ddeaa4ea3c5e746c925584, type: 3}
   grainPrefab: {fileID: 7488599849025497149, guid: 3998fabfe65f4244db3f7400bfa4b8d9, type: 3}
   sunSeedPrefab: {fileID: 5247463454208115816, guid: 22e4d5bda9c28e542a381706094be44a, type: 3}
+  peaImage: {fileID: 21300000, guid: 7597de3a70e2c4151875c5fb816cf0e5, type: 3}
+  cornImage: {fileID: 21300000, guid: 23de36d9c9c854d4dbb503079e846575, type: 3}
+  wheatImage: {fileID: 21300000, guid: d7bac4c3e8f044f2983b509e3ef144a1, type: 3}
+  sunImage: {fileID: 21300000, guid: 475d1ac95f51a4b41969b1c49e47b1f6, type: 3}
   cam: {fileID: 5077856202156829186}
   beakPrefab: {fileID: 381990546316094691}
   pistol: {fileID: 0}

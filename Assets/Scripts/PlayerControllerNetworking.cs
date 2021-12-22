@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControllerNetworking: NetworkBehaviour
@@ -14,6 +15,11 @@ public class PlayerControllerNetworking: NetworkBehaviour
     public Camera playerCamera;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
+
+    public int peaAmmoCnt = 0;
+    public int cornAmmoCnt = 0;
+    public int wheatAmmoCnt = 0;
+    public int sunAmmoCnt = 0;
 
 
     CharacterController characterController;
@@ -140,14 +146,32 @@ public class PlayerControllerNetworking: NetworkBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
-        Debug.Log(transform.position);
+       // Debug.Log(transform.position);
     }
     
     public void OnTriggerEnter(Collider Col)
     {
-        if (Col.gameObject.tag == "ammo")
+        if (Col.gameObject.tag == "grenade")
         {
 
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        if (Col.gameObject.tag == "ammoPea")
+        {
+            peaAmmoCnt+=15;
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        if (Col.gameObject.tag == "ammoWheat")
+        {
+            wheatAmmoCnt +=15;
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        if (Col.gameObject.tag == "ammoSun")
+        {
+            sunAmmoCnt+=15;
             Col.gameObject.SetActive(false);
             Destroy(Col.gameObject);
         }
