@@ -9,21 +9,10 @@ public class MenuStart : MonoBehaviour
     public Button playButton;
     public Button quitButton;
 
-    // sound manager
-    private AudioSource menuMusic;
-
-    // options GUI items
-    public Slider volumeSlider;
 
     // Start is called before the first frame update
     void Start()
     {
-        menuMusic = gameObject.GetComponent<AudioSource>();
-
-        volumeSlider.onValueChanged.AddListener((float val) => {
-            menuMusic.volume = val;
-        });
-
         playButton.onClick.AddListener(LoadFirstScene);
         quitButton.onClick.AddListener(QuitGame);
     }

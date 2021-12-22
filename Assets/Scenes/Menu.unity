@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &138110478 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5433118510530730939, guid: b9f75146044d2a6439498592a956462a, type: 3}
-  m_PrefabInstance: {fileID: 8885843358849686035}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &401814635 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4189701047832107927, guid: 7977e570a4cdbfc4798921c85e4f5280, type: 3}
@@ -425,10 +414,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1865502151}
   - component: {fileID: 1865502152}
+  - component: {fileID: 1865502154}
   - component: {fileID: 1865502153}
   m_Layer: 0
   m_Name: StartMenuManager
-  m_TagString: Untagged
+  m_TagString: hasAudio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,7 +451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 2088380267}
   quitButton: {fileID: 1722603970}
-  volumeSlider: {fileID: 138110478}
 --- !u!82 &1865502153
 AudioSource:
   m_ObjectHideFlags: 0
@@ -558,6 +547,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1865502154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865502150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8e7fbd1f825e941975feb2383302ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionsGUI: {fileID: 2144652883}
 --- !u!114 &2088380267 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4189701048847446115, guid: 7977e570a4cdbfc4798921c85e4f5280, type: 3}

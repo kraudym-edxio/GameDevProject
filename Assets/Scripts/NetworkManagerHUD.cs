@@ -16,8 +16,10 @@ namespace Mirror
     {
         NetworkManager manager;
 
+        public bool useLobbyGUI = false;
         public GameObject lobbyGUI;
         public GameObject pauseGUI; // for exiting as server/client
+        public GameObject optionsGUI; // in-game options, for now using same options panel as main menu
         public string username;
 
         private GameObject hostJoinGUI;
@@ -26,31 +28,46 @@ namespace Mirror
 
         private bool runOnce = true;
 
+        private GameObject outerCamera;
+
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
-
-            hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
-            connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
         }
 
-        void Start()
+        void Start() {
+            SetHUD();
+        }
+
+        void SetHUD()
         {
+            // used on new scene loads, for lobby is assigned in editor
+            pauseGUI = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+            optionsGUI = GameObject.Find("Canvas").transform.Find("OptionsMenu").gameObject;
+
+            if (useLobbyGUI) {
+                hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
+                connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
+            }
+
+            outerCamera = GameObject.Find("/OuterCamera");
             username = PlayerPrefs.GetString("username", "");
 
-            userInput = hostJoinGUI.transform.Find("UsernameInputField").GetComponent<TMP_InputField>();
+            if (useLobbyGUI) {
+                userInput = hostJoinGUI.transform.Find("UsernameInputField").GetComponent<TMP_InputField>();
+                userInput.text = username;
+                HostJoinListeners();
+                ConnectListeners();
+            }
 
-            userInput.text = username;
-
-            HostJoinListeners();
-            ConnectListeners();
             PauseListeners();
+            OptionsListeners();
         }
         
         void Update() {
-            try {
-                if (NetworkClient.isConnected) {
-                    if (runOnce) {
+            if (NetworkClient.isConnected) {
+                if (runOnce) {
+                    if (useLobbyGUI) {
                         lobbyGUI.SetActive(false);
                         connectingGUI.SetActive(false);
                         hostJoinGUI.SetActive(true);
@@ -58,16 +75,22 @@ namespace Mirror
                         PlayerPrefs.SetString("username", userInput.text);
                         username = userInput.text;
 
-                        runOnce = false;
                     }
-                } else {
-                    if (!runOnce) {
-                        lobbyGUI.SetActive(true);
-                        runOnce = true;
-                    }
+                    runOnce = false;
                 }
-            } catch {
-
+            } else {
+                if (!runOnce) {
+                    if (useLobbyGUI) {
+                        lobbyGUI.SetActive(true);
+                        pauseGUI.SetActive(false);
+                        outerCamera.SetActive(true);
+                    } else {
+                        Debug.Log("Disconnected from host, returning to lobby...");
+                        SceneManager.LoadScene("Lobby");
+                        SetHUD();
+                    }
+                    runOnce = true;
+                }
             }
         }
 
@@ -102,7 +125,8 @@ namespace Mirror
             });
 
             backBtn.onClick.AddListener(() => {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+                SceneManager.LoadScene("Menu");
+                Destroy(gameObject);
             });
         }
         void ConnectListeners() 
@@ -120,12 +144,19 @@ namespace Mirror
         void PauseListeners()
         {
 
+            Button optionsBtn = pauseGUI.transform
+                .Find("OptionsButton").GetComponent<Button>();
+
             Button exitMenuBtn = pauseGUI.transform
                 .Find("ExitToMenu").GetComponent<Button>();
             
             Button exitDesktopBtn = pauseGUI.transform
                 .Find("ExitGame").GetComponent<Button>();
             
+            optionsBtn.onClick.AddListener(() => {
+                pauseGUI.SetActive(false);
+                optionsGUI.SetActive(true);
+            });
 
             exitMenuBtn.onClick.AddListener(() => {
                 // stop host if host mode
@@ -139,14 +170,31 @@ namespace Mirror
                     manager.StopClient();
                 }
 
-                pauseGUI.SetActive(false);
-                lobbyGUI.SetActive(true);
+                Debug.Log("exit?");
+                if (useLobbyGUI) {
+                    outerCamera.SetActive(true);
+
+                    pauseGUI.SetActive(false);
+                    lobbyGUI.SetActive(true);
+                } else {
+                    SceneManager.LoadScene("Lobby");
+                    Destroy(gameObject);
+                }
             });
 
             exitDesktopBtn.onClick.AddListener(() => {
                 Debug.Log("quitting game from pause menu...");
                 Application.Quit();
             });
+        }
+
+        void OptionsListeners()
+        {
+           Button backBtn = optionsGUI.transform.Find("BackButton").GetComponent<Button>(); 
+           backBtn.onClick.AddListener(() => {
+               optionsGUI.SetActive(false);
+               pauseGUI.SetActive(true);
+           });
         }
     }
 }

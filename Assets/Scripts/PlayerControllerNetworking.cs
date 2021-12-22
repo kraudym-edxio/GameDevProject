@@ -31,6 +31,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     private Button resumeBtn;
     private Button quitBtn;
 
+    private GameObject outerCamera;
     void Start()
     {
         currentHealth = maxHealth;
@@ -38,37 +39,35 @@ public class PlayerControllerNetworking: NetworkBehaviour
         
         characterController = GetComponent<CharacterController>();
 
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockPlayer(false);
 
         if (!isLocalPlayer)
         {
             playerCamera.gameObject.SetActive(false);
         }
 
+        // disable outer camera
+
+        outerCamera = transform.Find("/OuterCamera").gameObject;
+        outerCamera.SetActive(false);
+
         // why doesn't unity let me find inactive game objects???? 
-        pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+        SetPauseMenu();
 
-        resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
-
-        resumeBtn.onClick.AddListener(() => {
-            pauseMenu.SetActive(false);
-            // lock mouse again
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            // can move again
-            canMove = true;
-        });
     }
 
     void Update()
     {
-
         if (!isLocalPlayer)
         {
             return;
         }
+        if (!NetworkClient.isConnected && canMove) {
+            LockPlayer(true);
+
+            outerCamera.SetActive(true);
+        } 
+
         
         //For test purposes, can be changed afterwards to work with gun damage 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -78,13 +77,10 @@ public class PlayerControllerNetworking: NetworkBehaviour
         
 
         if (Input.GetButton("Pause")) {
+            // bad code but it works
+            SetPauseMenu();
             pauseMenu.SetActive(true);
-            // unlock cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            // player should not be able to be controlled...
-            canMove = false;
+            LockPlayer(true);
         }
 
         // We are grounded, so recalculate move direction based on axes
@@ -125,6 +121,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
+
     }
     
     public void OnTriggerEnter(Collider Col)
@@ -135,6 +132,10 @@ public class PlayerControllerNetworking: NetworkBehaviour
             
             Col.gameObject.SetActive(false);
             Destroy(Col.gameObject);
+        }
+        else if (Col.gameObject.name == "StartFlag") 
+        {
+            GameObject.Find("/NetworkManager").GetComponent<CTFManager>().StartCTF();
         }
         
     }
@@ -151,4 +152,31 @@ public class PlayerControllerNetworking: NetworkBehaviour
         healthBar.SetHealth(currentHealth);
     }
     
+    public void SetPauseMenu() {
+        pauseMenu = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+        resumeBtn = pauseMenu.transform.Find("ResumeButton").GetComponent<Button>();
+
+        resumeBtn.onClick.AddListener(() => {
+            pauseMenu.SetActive(false);
+            LockPlayer(false);
+        });
+    }
+
+    public void SetPosition() {
+        var pos = GameObject.Find("/NetworkManager").GetComponent<CTFManager>().GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
+
+        // character controller messes up teleporting, disable then move then re-enable.
+        //https://forum.unity.com/threads/unity-multiplayer-through-mirror-teleporting-player-inconsistent.867079/
+        GetComponent<CharacterController>().enabled = false;
+        transform.position = pos;
+        GetComponent<CharacterController>().enabled = true;
+    }
+
+    public void LockPlayer(bool isLock) {
+            // lock mouse again
+            Cursor.lockState = isLock ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = isLock;
+            // can move again
+            canMove = !isLock;
+    }
 }
