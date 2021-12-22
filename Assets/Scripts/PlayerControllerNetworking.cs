@@ -154,6 +154,24 @@ public class PlayerControllerNetworking: NetworkBehaviour
                 hasFlag = true;
             }
         }
+        else if (Col.gameObject.tag == "RedArea")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red && hasFlag) {
+                GameObject.Find("/NetworkManager").GetComponent<CTFManager>().chosenSpawnPoints = new HashSet<int>();
+                foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
+                    var pcn = g.GetComponent<PlayerControllerNetworking>();
+                    pcn.hasFlag = false;
+                    pcn.SetPosition();
+                }
+            }
+        }
+
+        else if (Col.gameObject.tag == "BlueArea")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue && hasFlag) {
+                Debug.Log("respawn all players, add to score");
+            }
+        }
     }
 
     public void TakeDmg(int dmg)

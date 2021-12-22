@@ -13,6 +13,8 @@ TagManager:
   - RedFlagSpawn
   - BlueFlag
   - RedFlag
+  - RedArea
+  - BlueArea
   layers:
   - Default
   - TransparentFX
