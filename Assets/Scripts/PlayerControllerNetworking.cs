@@ -160,33 +160,49 @@ public class PlayerControllerNetworking: NetworkBehaviour
         else if (Col.gameObject.tag == "RedArea")
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red && hasFlag) {
-                ctfMan.chosenSpawnPoints = new HashSet<int>();
-                foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
-                    var pcn = g.GetComponent<PlayerControllerNetworking>();
-                    pcn.hasFlag = false;
-                    pcn.SetPosition();
-                }
+                ctfMan.redWins++;
+                ResetAllPositions();
             }
         }
 
         else if (Col.gameObject.tag == "BlueArea")
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue && hasFlag) {
-                ctfMan.chosenSpawnPoints = new HashSet<int>();
-                foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
-                    var pcn = g.GetComponent<PlayerControllerNetworking>();
-                    pcn.hasFlag = false;
-                    pcn.SetPosition();
-                }
+                ctfMan.blueWins++;
+                ResetAllPositions();
             }            
         }
+    }
+
+    // called upon win. If limit is reached, change scene. 
+    public void ResetAllPositions() {
+        if (ctfMan.redWins >= ctfMan.winLimit || ctfMan.blueWins >= ctfMan.winLimit) {
+            ctfMan.inGame = false;
+            ctfMan.StartCTF();
+        }
+        ctfMan.chosenSpawnPoints = new HashSet<int>();
+        foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
+            var pcn = g.GetComponent<PlayerControllerNetworking>();
+            pcn.hasFlag = false;
+            pcn.SetPosition();
+        }
+    }
+    public void KillPlayer() {
+        ctfMan.chosenSpawnPoints = new HashSet<int>();
+        hasFlag = false;
+        SetPosition();
     }
 
     public void TakeDmg(int dmg)
     {
         currentHealth -= dmg;
+        if (currentHealth < 0) {
+            currentHealth = 0;
+            KillPlayer();
+        }
         healthBar.SetHealth(currentHealth);
     }
+
 
     public void IncHealth(int inc)
     {

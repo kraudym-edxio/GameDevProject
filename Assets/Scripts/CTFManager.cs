@@ -33,6 +33,8 @@ public class CTFManager : NetworkBehaviour
     [SyncVar]
     public int blueWins = 0;
 
+    public int winLimit = 1;
+
     // method to call that starts ctf
     public void StartCTF() {
         Debug.Log("starting capture the flag match...");
