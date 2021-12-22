@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 public enum Team {
+    None,
     Red,
     Blue,
     Error
 }
 
-public class CTFManager : MonoBehaviour
+public class CTFManager : NetworkBehaviour 
 {
-    // Start is called before the first frame update
+    public HashSet<int> chosenSpawnPoints = new HashSet<int>();
 
-    public static HashSet<int> chosenSpawnPoints = new HashSet<int>();
-    public static Transform GetRandomSpawnLocation(bool useTeamSpawn=false, Team t=Team.Red) {
+
+    public Transform GetRandomSpawnLocation(bool useTeamSpawn=false, Team t=Team.Red) {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if (useTeamSpawn) {
             if (t == Team.Red) {
@@ -53,7 +54,9 @@ public class CTFManager : MonoBehaviour
     public void StartCTF() {
         Debug.Log("starting capture the flag match...");
         chosenSpawnPoints = new HashSet<int>();     // erase old spawn points
-        GetComponent<AudioSource>().mute = true;
+        foreach(var g in GameObject.FindGameObjectsWithTag("hasAudio")) {
+            g.GetComponent<AudioSource>().mute = true;
+        }
         SceneManager.LoadScene(currLevelIndex);
         // coroutine waits for scene to load before getting objects in scene
         StartCoroutine("startCTFOnceSceneLoads");
@@ -80,8 +83,4 @@ public class CTFManager : MonoBehaviour
 
     }
 
-    public static void DestroyNM() {
-        Debug.Log("destroying nm?");
-        Destroy(GameObject.Find("NetworkManager"));
-    }
 }

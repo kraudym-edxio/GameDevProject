@@ -1,38 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class CTFPlayerManager : MonoBehaviour
+public class CTFPlayerManager : NetworkBehaviour
 {
-    public static List<Team> ChosenTeams = new List<Team>();
 
+    [SyncVar]
     public Team playerTeam;
 
     void Start() {
         DontDestroyOnLoad(gameObject);
-        // check if teams are unbalanced: if so balance by choosing team with lowest player count
-        int redCount = 0;
-        int blueCount = 0;
-        for (int i = 0; i < ChosenTeams.Count; i++) {
-            switch(ChosenTeams[i]) {
-                case Team.Red:
-                    redCount++;
-                    break;
-                case Team.Blue:
-                    blueCount++;
-                    break;
+
+        if (playerTeam == Team.None) {
+
+            // check if teams are unbalanced: if so balance by choosing team with lowest player count
+            int redCount = 0;
+            int blueCount = 0;
+            foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
+                var otherTeam = g.GetComponent<CTFPlayerManager>().playerTeam;
+                switch(otherTeam) {
+                    case Team.Red:
+                        redCount++;
+                        break;
+                    case Team.Blue:
+                        blueCount++;
+                        break;
+                    default:    // if unassigned
+                        break;
+                }
             }
+            Debug.Log($"red count {redCount}, blue count: {blueCount}");
+
+            // if balanced, choose randomly
+            if (redCount == blueCount) {
+                int numChoice = Random.Range(0,2);
+                playerTeam = numChoice == 0 ? Team.Red : Team.Blue;
+            } else if (redCount > blueCount) {
+                playerTeam = Team.Blue;
+            } else {
+                playerTeam = Team.Red;
+            }
+
         }
-        // if balanced, choose randomly
-        if (redCount == blueCount) {
-            int numChoice = Random.Range(0,2);
-            playerTeam = numChoice == 0 ? Team.Red : Team.Blue;
-        } else if (redCount > blueCount) {
-            playerTeam = Team.Blue;
-        } else {
-            playerTeam = Team.Red;
-        }
-        ChosenTeams.Add(playerTeam);
 
         switch (playerTeam) {
             case Team.Red:
@@ -44,7 +54,7 @@ public class CTFPlayerManager : MonoBehaviour
                 transform.Find("BlueChicken").gameObject.SetActive(true);
                 break;
         }
-        transform.position = CTFManager.GetRandomSpawnLocation().position;
+        transform.position = GameObject.Find("/NetworkManager").GetComponent<CTFManager>().GetRandomSpawnLocation().position;
         Debug.Log(transform.position);
     }
 }

@@ -50,7 +50,7 @@ namespace Mirror
                 connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
             }
 
-            outerCamera = GameObject.Find("OuterCamera");
+            outerCamera = GameObject.Find("/OuterCamera");
             username = PlayerPrefs.GetString("username", "");
 
             if (useLobbyGUI) {
@@ -65,34 +65,32 @@ namespace Mirror
         }
         
         void Update() {
-            try {
-                if (NetworkClient.isConnected) {
-                    if (runOnce) {
-                        if (useLobbyGUI) {
-                            lobbyGUI.SetActive(false);
-                            connectingGUI.SetActive(false);
-                            hostJoinGUI.SetActive(true);
+            if (NetworkClient.isConnected) {
+                if (runOnce) {
+                    if (useLobbyGUI) {
+                        lobbyGUI.SetActive(false);
+                        connectingGUI.SetActive(false);
+                        hostJoinGUI.SetActive(true);
 
-                            PlayerPrefs.SetString("username", userInput.text);
-                            username = userInput.text;
+                        PlayerPrefs.SetString("username", userInput.text);
+                        username = userInput.text;
 
-                        }
-                        runOnce = false;
                     }
-                } else {
-                    if (!runOnce) {
-                        if (useLobbyGUI) {
-                            lobbyGUI.SetActive(true);
-                            pauseGUI.SetActive(false);
-                        } else {
-                            Debug.Log("Disconnected from host, returning to lobby...");
-                            SceneManager.LoadScene("Lobby");
-                        }
-                        runOnce = true;
-                    }
+                    runOnce = false;
                 }
-            } catch {
-
+            } else {
+                if (!runOnce) {
+                    if (useLobbyGUI) {
+                        lobbyGUI.SetActive(true);
+                        pauseGUI.SetActive(false);
+                        outerCamera.SetActive(true);
+                    } else {
+                        Debug.Log("Disconnected from host, returning to lobby...");
+                        SceneManager.LoadScene("Lobby");
+                        SetHUD();
+                    }
+                    runOnce = true;
+                }
             }
         }
 
@@ -179,8 +177,8 @@ namespace Mirror
                     pauseGUI.SetActive(false);
                     lobbyGUI.SetActive(true);
                 } else {
-                    CTFManager.DestroyNM();
                     SceneManager.LoadScene("Lobby");
+                    Destroy(gameObject);
                 }
             });
 
