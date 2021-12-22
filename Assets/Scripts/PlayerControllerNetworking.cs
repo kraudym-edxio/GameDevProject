@@ -169,8 +169,13 @@ public class PlayerControllerNetworking: NetworkBehaviour
         else if (Col.gameObject.tag == "BlueArea")
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue && hasFlag) {
-                Debug.Log("respawn all players, add to score");
-            }
+                GameObject.Find("/NetworkManager").GetComponent<CTFManager>().chosenSpawnPoints = new HashSet<int>();
+                foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
+                    var pcn = g.GetComponent<PlayerControllerNetworking>();
+                    pcn.hasFlag = false;
+                    pcn.SetPosition();
+                }
+            }            
         }
     }
 
