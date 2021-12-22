@@ -403,6 +403,10 @@ PrefabInstance:
       propertyPath: optionsGUI
       value: 
       objectReference: {fileID: 1992089250}
+    - target: {fileID: 2427972821188766540, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: sceneId
+      value: 3068221862
+      objectReference: {fileID: 0}
     - target: {fileID: 2503991443475668776, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
       propertyPath: lobby
       value: 

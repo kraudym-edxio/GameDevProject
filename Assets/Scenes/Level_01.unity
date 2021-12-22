@@ -2864,6 +2864,10 @@ PrefabInstance:
       propertyPath: optionsGUI
       value: 
       objectReference: {fileID: 2054437683}
+    - target: {fileID: 2427972821188766540, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: sceneId
+      value: 264340211
+      objectReference: {fileID: 0}
     - target: {fileID: 4696864692644956394, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
       propertyPath: pauseGUI
       value: 

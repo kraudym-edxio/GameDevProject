@@ -11,7 +11,7 @@ public enum Team {
     Error
 }
 
-public class CTFManager : MonoBehaviour 
+public class CTFManager : NetworkBehaviour 
 {
     public HashSet<int> chosenSpawnPoints = new HashSet<int>();
 
