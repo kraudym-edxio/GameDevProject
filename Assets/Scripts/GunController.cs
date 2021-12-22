@@ -51,7 +51,7 @@ public class GunController : NetworkBehaviour
         // SHOTGUN
         shotgun = gameObject.AddComponent<Gun>();
         shotgun.dmg = 15;
-        shotgun.bps = 6;
+        shotgun.bps = 4;
         shotgun.ammo = 12;
         shotgun.deltaShot = 2;
         shotgun.spread = 0.06f;
@@ -139,9 +139,22 @@ public class GunController : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ammo"))
+        if (other.CompareTag("PistolAmmo"))
         {
             other.gameObject.SetActive(false);
+            pistol.ammo += 4;
+        } else if (other.CompareTag("SMGAmmo"))
+        {
+            other.gameObject.SetActive(false);
+            smg.ammo += 10;
+        } else if (other.CompareTag("ShotgunAmmo"))
+        {
+            other.gameObject.SetActive(false);
+            shotgun.ammo += 8;
+        } else if (other.CompareTag("SniperAmmo"))
+        {
+            other.gameObject.SetActive(false);
+            sniper.ammo += 4;
         }
     }
 }

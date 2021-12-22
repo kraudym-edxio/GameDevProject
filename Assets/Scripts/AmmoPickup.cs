@@ -6,7 +6,7 @@ public class AmmoPickup : MonoBehaviour
 {
     private void OnDisable()
         {
-            Invoke("Activate", 2);
+            Invoke("Activate", 10);
         }
     
     private void Activate()
