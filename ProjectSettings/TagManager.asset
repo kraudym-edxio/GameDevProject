@@ -9,6 +9,9 @@ TagManager:
   - hasAudio
   - RedSpawnPoint
   - BlueSpawnPoint
+  - playerGUI
+  - grenade
+  - ammo
   layers:
   - Default
   - TransparentFX
