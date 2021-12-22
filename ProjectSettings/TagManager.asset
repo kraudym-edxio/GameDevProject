@@ -12,6 +12,11 @@ TagManager:
   - playerGUI
   - grenade
   - ammo
+  - ammoTom
+  - ammoCorn
+  - ammoPea
+  - ammoSun
+  - ammoWheat
   layers:
   - Default
   - TransparentFX

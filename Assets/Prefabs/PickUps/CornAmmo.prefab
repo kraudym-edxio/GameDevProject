@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8566604542328977469}
   m_Layer: 0
   m_Name: CornAmmo
-  m_TagString: ammo
+  m_TagString: ammoCorn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

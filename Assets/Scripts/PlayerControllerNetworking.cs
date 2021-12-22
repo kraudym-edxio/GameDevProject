@@ -32,8 +32,14 @@ public class PlayerControllerNetworking: NetworkBehaviour
     private Button quitBtn;
 
     private GameObject outerCamera;
+
+    //Pickups
+    GameObject ammoCNT;
+
     void Start()
     {
+
+
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         
@@ -139,14 +145,33 @@ public class PlayerControllerNetworking: NetworkBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
     }
     
     public void OnTriggerEnter(Collider Col)
     {
-        if (Col.gameObject.tag == "ammo")
+        //They get pickup and destroyed but no functionality yet
+        if (Col.gameObject.tag == "ammoPea")
         {
-
+            Debug.Log("Ammo Pea");
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        if (Col.gameObject.tag == "ammoSun")
+        {
+            Debug.Log("Ammo Sun");
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        if (Col.gameObject.tag == "ammoWheat")
+        {
+            Debug.Log("Ammo Wheat");
+            Col.gameObject.SetActive(false);
+            Destroy(Col.gameObject);
+        }
+        if (Col.gameObject.tag == "ammoCorn")
+        {
+            Debug.Log("Ammo Corn");
             Col.gameObject.SetActive(false);
             Destroy(Col.gameObject);
         }

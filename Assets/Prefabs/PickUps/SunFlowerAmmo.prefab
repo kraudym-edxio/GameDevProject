@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 817031363905160528}
   m_Layer: 0
   m_Name: SunFlowerAmmo
-  m_TagString: ammo
+  m_TagString: ammoSun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
