@@ -185,12 +185,16 @@ public class PlayerControllerNetworking: NetworkBehaviour
             var pcn = g.GetComponent<PlayerControllerNetworking>();
             pcn.hasFlag = false;
             pcn.SetPosition();
+            pcn.currentHealth = maxHealth;
+            pcn.healthBar.SetMaxHealth(maxHealth);
         }
     }
     public void KillPlayer() {
         ctfMan.chosenSpawnPoints = new HashSet<int>();
         hasFlag = false;
         SetPosition();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     public void TakeDmg(int dmg)
@@ -221,7 +225,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
     }
 
     public void SetPosition() {
-        var pos = ctfMan.GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
+        var pos = ctfMan.GetRandomSpawnLocation2(GetComponent<CTFPlayerManager>().playerTeam).position;
 
         // character controller messes up teleporting, disable then move then re-enable.
         //https://forum.unity.com/threads/unity-multiplayer-through-mirror-teleporting-player-inconsistent.867079/

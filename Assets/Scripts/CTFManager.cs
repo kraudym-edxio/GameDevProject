@@ -69,8 +69,8 @@ public class CTFManager : NetworkBehaviour
             if (currLevelIndex==5) currLevelIndex=2;
 
             foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
-                g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPauseMenu");
-                g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPosition");
+                g.GetComponent<PlayerControllerNetworking>().SetPauseMenu();
+                g.GetComponent<PlayerControllerNetworking>().SetPosition();
             }
 
             var nmh = GameObject.Find("/NetworkManager").GetComponent<NetworkManagerHUD>();
@@ -101,6 +101,12 @@ public class CTFManager : NetworkBehaviour
     }
     
     // helper functions
+    public Transform GetRandomSpawnLocation2(Team t=Team.Red) {
+        if (SceneManager.GetActiveScene().buildIndex == 1) { // is lobby
+            return GetRandomSpawnLocation(false, t);
+        } 
+        return GetRandomSpawnLocation(true, t);
+    }
     public Transform GetRandomSpawnLocation(bool useTeamSpawn=false, Team t=Team.Red) {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if (useTeamSpawn) {
