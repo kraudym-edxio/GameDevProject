@@ -86,7 +86,7 @@ namespace Mirror
                         outerCamera.SetActive(true);
                     } else {
                         Debug.Log("Disconnected from host, returning to lobby...");
-                        GetComponent<CTFManager>().EndCTF();
+                        transform.Find("CTFManager").GetComponent<CTFManager>().EndCTF();
                         SetHUD();
                     }
                     runOnce = true;
@@ -177,7 +177,7 @@ namespace Mirror
                     pauseGUI.SetActive(false);
                     lobbyGUI.SetActive(true);
                 } else {
-                    GetComponent<CTFManager>().EndCTF();
+                    transform.Find("CTFManager").GetComponent<CTFManager>().EndCTF();
                     Destroy(gameObject);
                 }
             });

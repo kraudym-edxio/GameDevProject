@@ -37,11 +37,15 @@ public class PlayerControllerNetworking: NetworkBehaviour
     private GameObject outerCamera;
 
     private CTFManager ctfMan;
+
+    TMPro.TMP_Text redScore;
+    TMPro.TMP_Text blueScore;
     void Start()
     {
         ctfMan = GameObject.Find("/NetworkManager").transform.Find("CTFManager").GetComponent<CTFManager>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
         
         characterController = GetComponent<CharacterController>();
 
@@ -54,11 +58,13 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         // disable outer camera
 
-        outerCamera = transform.Find("/OuterCamera").gameObject;
-        outerCamera.SetActive(false);
-
         // why doesn't unity let me find inactive game objects???? 
         SetPauseMenu();
+
+        if (isLocalPlayer) {
+            outerCamera = GameObject.Find("/OuterCamera");
+            outerCamera.SetActive(false);
+        }
 
     }
 
@@ -161,6 +167,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red && hasFlag) {
                 ctfMan.redWins++;
+                ctfMan.redCountGUI.text = $"Red Score: {ctfMan.redWins}";
+                ctfMan.blueCountGUI.text = $"Blue Score: {ctfMan.blueWins}";
+
                 ResetAllPositions();
             }
         }
@@ -169,6 +178,8 @@ public class PlayerControllerNetworking: NetworkBehaviour
         {
             if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue && hasFlag) {
                 ctfMan.blueWins++;
+                ctfMan.redCountGUI.text = $"Red Score: {ctfMan.redWins}";
+                ctfMan.blueCountGUI.text = $"Blue Score: {ctfMan.blueWins}";
                 ResetAllPositions();
             }            
         }
