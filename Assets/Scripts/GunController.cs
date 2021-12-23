@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class GunController : NetworkBehaviour
@@ -18,6 +19,18 @@ public class GunController : NetworkBehaviour
     [SerializeField] public GameObject cornPrefab; // SMG gun 2 = corn
     [SerializeField] public GameObject grainPrefab; // shotgun gun 3 = grains
     [SerializeField] public GameObject sunSeedPrefab; // sniper gun 4 = sunflower seeds
+    //Ammo
+    Image pea_Image;
+    [SerializeField] public Image pea_Sprite; // Ammo  pistol gun
+    [SerializeField] public Image corn_Sprite; // Ammo  SMG gun 2
+    [SerializeField] public Image wheat_Sprite; // Ammo shotgun gun 3
+    [SerializeField] public Image sun_Sprite; // Ammo sniper gun 4
+    private GameObject pea_UI; // Ammo  pistol gun
+    private GameObject corn_UI; // Ammo  SMG gun 2
+    private GameObject wheat_UI; // Ammo shotgun gun 3
+    private GameObject sun_UI; // Ammo sniper gun 4
+    [SerializeField] public Text player_GUI;
+
     [SerializeField] public Camera cam;
     [SerializeField] public GameObject beakPrefab;
     public Gun pistol;
@@ -25,8 +38,11 @@ public class GunController : NetworkBehaviour
     public Gun shotgun;
     public Gun sniper;
 
-    private void Start()
+        private void Start()
     {
+       
+
+
         pcn = GetComponent<PlayerControllerNetworking>();
         pm = GetComponent<CTFPlayerManager>();
         Transform beak = beakPrefab.transform;
@@ -54,6 +70,7 @@ public class GunController : NetworkBehaviour
         pistol.cam = cam;
         pistol.bulletSpawn = beak;
         pistol.enemy = enemy;
+        
         
         // SMG
         smg = gameObject.AddComponent<Gun>();
@@ -102,6 +119,7 @@ public class GunController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             gun = 1;
+            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {

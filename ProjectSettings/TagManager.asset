@@ -9,6 +9,13 @@ TagManager:
   - hasAudio
   - RedSpawnPoint
   - BlueSpawnPoint
+  - playerGUI
+  - grenade
+  - ammo
+  - ammoPea
+  - ammoWheat
+  - ammoCorn
+  - ammoSun
   - BlueFlagSpawn
   - RedFlagSpawn
   - BlueFlag
