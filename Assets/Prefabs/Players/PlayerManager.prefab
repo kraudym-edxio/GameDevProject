@@ -174,7 +174,6 @@ GameObject:
   - component: {fileID: 5983463804736475878}
   - component: {fileID: 2281508030716840610}
   - component: {fileID: 2493950778747645948}
-  - component: {fileID: 2493950778747645949}
   - component: {fileID: 1518345288732589288}
   m_Layer: 0
   m_Name: PlayerManager
@@ -423,22 +422,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2493950778747645949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2492992644077190592}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6126c3e79d72911408dfa90e5c2577c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 2
-  jumpHeight: 1
-  gravityValue: -9.81
-  rotationSpeed: 5
 --- !u!114 &1518345288732589288
 MonoBehaviour:
   m_ObjectHideFlags: 0
