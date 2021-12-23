@@ -342,13 +342,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChickenArena
       objectReference: {fileID: 0}
+    - target: {fileID: 4707704487386206525, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 3315995271
+      objectReference: {fileID: 0}
     - target: {fileID: 6215573841323216950, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
       propertyPath: sceneId
       value: 3314777368
       objectReference: {fileID: 0}
+    - target: {fileID: 6328489887134882820, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 4073960236
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471369020208518904, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 1470485894
+      objectReference: {fileID: 0}
     - target: {fileID: 8375070327234837041, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
       propertyPath: sceneId
       value: 2132234213
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553198728984412074, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 1609594892
       objectReference: {fileID: 0}
     - target: {fileID: 8894739998173225622, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
       propertyPath: sceneId
