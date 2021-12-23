@@ -492,6 +492,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5542599285081460607, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5542599285081460607, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: spawnPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6828250182626500406, guid: d526f0049c0ebcd48ae70ccfa46e2950, type: 3}
+    - target: {fileID: 5542599285081460607, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: spawnPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 6828250182626500406, guid: a8e76495f6c813743b5efafd1f260875, type: 3}
+    - target: {fileID: 5542599285081460607, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
       propertyPath: PersistNetworkManagerToOfflineScene
       value: 1
       objectReference: {fileID: 0}

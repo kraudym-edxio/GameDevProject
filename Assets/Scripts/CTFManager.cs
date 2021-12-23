@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
 
@@ -35,9 +36,41 @@ public class CTFManager : NetworkBehaviour
 
     public int winLimit = 1;
 
+    public Text redCountGUI;
+    public Text blueCountGUI;
+
+    [SyncVar]
+    public int redFlagChoice = -1;
+    [SyncVar]
+    public int blueFlagChoice = -1;
+
+    void Update() {
+        try {
+            if (inGame && (redFlagChoice == -1 || blueFlagChoice == -1)) {
+                var redFlagSpawnLocations = GameObject.FindGameObjectsWithTag($"RedFlagSpawn");
+                var blueFlagSpawnLocations = GameObject.FindGameObjectsWithTag($"BlueFlagSpawn");
+                redFlagChoice = Random.Range(0, redFlagSpawnLocations.Length);
+                blueFlagChoice = Random.Range(0, blueFlagSpawnLocations.Length);
+
+                var r = GameObject.FindGameObjectWithTag("RedFlag");
+                var b = GameObject.FindGameObjectWithTag("BlueFlag");
+
+                r.transform.position = redFlagSpawnLocations[redFlagChoice].transform.position;
+                b.transform.position = blueFlagSpawnLocations[blueFlagChoice].transform.position;
+
+                Debug.Log(r.transform.position);
+            }
+        } catch (System.Exception e){
+            redFlagChoice = -1;
+            blueFlagChoice = -1;
+            //Debug.LogError(e);
+        }
+    }
+
     // method to call that starts ctf
     public void StartCTF() {
         Debug.Log("starting capture the flag match...");
+
         chosenSpawnPoints = new HashSet<int>();     // erase old spawn points
         foreach(var g in GameObject.FindGameObjectsWithTag("hasAudio")) {
             g.GetComponent<AudioSource>().mute = true;
@@ -65,6 +98,13 @@ public class CTFManager : NetworkBehaviour
         }
         if (SceneManager.GetActiveScene().buildIndex == currLevelIndex) {
 
+            if (SceneManager.GetActiveScene().buildIndex != 1) {
+                redCountGUI = GameObject.Find("/Canvas").transform.Find("ScoreGUI").Find("RedTeam").Find("ScoreText").GetComponent<Text>();
+                blueCountGUI = GameObject.Find("/Canvas").transform.Find("ScoreGUI").Find("BlueTeam").Find("ScoreText").GetComponent<Text>();
+                redCountGUI.text = $"Red Score: {redWins}";
+                blueCountGUI.text = $"Blue Score: {blueWins}";
+            }
+
             currLevelIndex++;
             if (currLevelIndex==5) currLevelIndex=2;
 
@@ -87,16 +127,14 @@ public class CTFManager : NetworkBehaviour
         var blueFlagSpawnLocations = GameObject.FindGameObjectsWithTag($"BlueFlagSpawn");
 
         if (redFlagSpawnLocations.Length > 0 && blueFlagSpawnLocations.Length > 0) {
-            var redChoice = Random.Range(0, redFlagSpawnLocations.Length);
-            var blueChoice = Random.Range(0, blueFlagSpawnLocations.Length);
-
-            Debug.Log(redChoice);
-
-            var r = Instantiate(redFlag, redFlagSpawnLocations[redChoice].transform);
-            var b = Instantiate(blueFlag, blueFlagSpawnLocations[blueChoice].transform);
-
-            r.transform.parent = GameObject.Find("/RedArea").transform;
-            b.transform.parent = GameObject.Find("/BlueArea").transform;
+            if (isServer) {
+                var redFlagChoice = Random.Range(0, redFlagSpawnLocations.Length);
+                var blueFlagChoice = Random.Range(0, blueFlagSpawnLocations.Length);
+                var r = Instantiate(redFlag, redFlagSpawnLocations[redFlagChoice].transform);
+                var b = Instantiate(blueFlag, blueFlagSpawnLocations[blueFlagChoice].transform);
+                NetworkServer.Spawn(r);
+                NetworkServer.Spawn(b);
+            }
         }
     }
     
