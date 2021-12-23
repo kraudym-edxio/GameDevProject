@@ -16,6 +16,12 @@ TagManager:
   - ammoWheat
   - ammoCorn
   - ammoSun
+  - BlueFlagSpawn
+  - RedFlagSpawn
+  - BlueFlag
+  - RedFlag
+  - RedArea
+  - BlueArea
   layers:
   - Default
   - TransparentFX

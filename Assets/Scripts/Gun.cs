@@ -26,14 +26,14 @@ public class Gun : NetworkBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn; // set to chicken's beak
     public Camera cam;
-    public RaycastHit hit;
+    public Team enemy;
 
     // Constructor for simple gun generation
     public Gun()
     {
         bps = 1;
         ammo = 10;
-        range = 30;
+        range = 50;
         spread = 0.01f;
         deltaShot = 1;
     }
@@ -50,21 +50,7 @@ public class Gun : NetworkBehaviour
         BulletController bulletController = bullet.GetComponent<BulletController>();
         bulletController.dmg = dmg;
         bulletController.target = cam.transform.position + direction * range;
-        /*if (Physics.Raycast(aim.transform.position, direction, out hit, range))
-        { // if it will hit something, set the proper variables in bulletController
-            bulletController.target = hit.point;
-            Debug.Log(hit.collider.name);
-            // if we hit an enemy, do damage to the enemy
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                // do damage to enemy
-            }
-        }
-        else
-        { // if 
-            bulletController.target = aim.transform.position + aim.transform.forward * range;
-            bulletController.hit = false;
-        }*/
+        bulletController.enemy = enemy;
         ammo--;
         i--;
 

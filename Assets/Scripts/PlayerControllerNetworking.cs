@@ -32,23 +32,27 @@ public class PlayerControllerNetworking: NetworkBehaviour
     public HealthBar healthBar;
     public int maxHealth = 100;
     public int currentHealth;
+
+    [SyncVar]
+    public bool hasFlag = false;
     // pause menu
     public GameObject pauseMenu;
     private Button resumeBtn;
     private Button quitBtn;
 
     private GameObject outerCamera;
+
+    private CTFManager ctfMan;
     void Start()
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
+        ctfMan = GameObject.Find("/NetworkManager").transform.Find("CTFManager").GetComponent<CTFManager>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         
         characterController = GetComponent<CharacterController>();
 
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockPlayer(false);
 
         if (!isLocalPlayer)
         {
@@ -57,7 +61,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         // disable outer camera
 
-        outerCamera = GameObject.Find("OuterCamera");
+        outerCamera = transform.Find("/OuterCamera").gameObject;
         outerCamera.SetActive(false);
 
         // why doesn't unity let me find inactive game objects???? 
@@ -67,21 +71,16 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
     void Update()
     {
-        if (!NetworkClient.isConnected && canMove) {
-            // unlock cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            // player should not be able to be controlled...
-            canMove = false;
-
-            outerCamera.SetActive(true);
-        } 
-
         if (!isLocalPlayer)
         {
             return;
         }
+        if (!NetworkClient.isConnected && canMove) {
+            LockPlayer(true);
+
+            outerCamera.SetActive(true);
+        } 
+
         
         //For test purposes, can be changed afterwards to work with gun damage 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -92,19 +91,9 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         if (Input.GetButton("Pause")) {
             // bad code but it works
-            try {
-                pauseMenu.SetActive(true);
-            } catch (MissingReferenceException e) {
-                Debug.Log(e);
-                SetPauseMenu();
-                pauseMenu.SetActive(true);
-            }
-            // unlock cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            // player should not be able to be controlled...
-            canMove = false;
+            SetPauseMenu();
+            pauseMenu.SetActive(true);
+            LockPlayer(true);
         }
 
         // We are grounded, so recalculate move direction based on axes
@@ -185,16 +174,72 @@ public class PlayerControllerNetworking: NetworkBehaviour
         }
         else if (Col.gameObject.name == "StartFlag") 
         {
-            GameObject.Find("NetworkManager").GetComponent<CTFManager>().StartCTF();
+            ctfMan.StartCTF();
         }
-        
+        else if (Col.gameObject.tag == "RedFlag")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue) {
+                Destroy(Col.gameObject);
+                hasFlag = true;
+            }
+        }
+        else if (Col.gameObject.tag == "BlueFlag")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red) {
+                Destroy(Col.gameObject);
+                hasFlag = true;
+            }
+        }
+        else if (Col.gameObject.tag == "RedArea")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Red && hasFlag) {
+                ctfMan.redWins++;
+                ResetAllPositions();
+            }
+        }
+
+        else if (Col.gameObject.tag == "BlueArea")
+        {
+            if (GetComponent<CTFPlayerManager>().playerTeam == Team.Blue && hasFlag) {
+                ctfMan.blueWins++;
+                ResetAllPositions();
+            }            
+        }
+    }
+
+    // called upon win. If limit is reached, change scene. 
+    public void ResetAllPositions() {
+        if (ctfMan.redWins >= ctfMan.winLimit || ctfMan.blueWins >= ctfMan.winLimit) {
+            ctfMan.inGame = false;
+            ctfMan.StartCTF();
+        }
+        ctfMan.chosenSpawnPoints = new HashSet<int>();
+        foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
+            var pcn = g.GetComponent<PlayerControllerNetworking>();
+            pcn.hasFlag = false;
+            pcn.SetPosition();
+            pcn.currentHealth = maxHealth;
+            pcn.healthBar.SetMaxHealth(maxHealth);
+        }
+    }
+    public void KillPlayer() {
+        ctfMan.chosenSpawnPoints = new HashSet<int>();
+        hasFlag = false;
+        SetPosition();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     public void TakeDmg(int dmg)
     {
         currentHealth -= dmg;
+        if (currentHealth < 0) {
+            currentHealth = 0;
+            KillPlayer();
+        }
         healthBar.SetHealth(currentHealth);
     }
+
 
     public void IncHealth(int inc)
     {
@@ -208,21 +253,25 @@ public class PlayerControllerNetworking: NetworkBehaviour
 
         resumeBtn.onClick.AddListener(() => {
             pauseMenu.SetActive(false);
-            // lock mouse again
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            // can move again
-            canMove = true;
+            LockPlayer(false);
         });
     }
 
     public void SetPosition() {
-        var pos = CTFManager.GetRandomSpawnLocation(true, GetComponent<CTFPlayerManager>().playerTeam).position;
+        var pos = ctfMan.GetRandomSpawnLocation2(GetComponent<CTFPlayerManager>().playerTeam).position;
 
         // character controller messes up teleporting, disable then move then re-enable.
         //https://forum.unity.com/threads/unity-multiplayer-through-mirror-teleporting-player-inconsistent.867079/
         GetComponent<CharacterController>().enabled = false;
         transform.position = pos;
         GetComponent<CharacterController>().enabled = true;
+    }
+
+    public void LockPlayer(bool isLock) {
+            // lock mouse again
+            Cursor.lockState = isLock ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = isLock;
+            // can move again
+            canMove = !isLock;
     }
 }

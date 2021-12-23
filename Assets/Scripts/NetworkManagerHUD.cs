@@ -37,17 +37,24 @@ namespace Mirror
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
+        }
+
+        void Start() {
+            SetHUD();
+        }
+
+        void SetHUD()
+        {
+            // used on new scene loads, for lobby is assigned in editor
+            pauseGUI = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+            optionsGUI = GameObject.Find("Canvas").transform.Find("OptionsMenu").gameObject;
 
             if (useLobbyGUI) {
                 hostJoinGUI = lobbyGUI.transform.Find("HostOrJoinLobby").gameObject;
                 connectingGUI = lobbyGUI.transform.Find("ConnectingMenu").gameObject;
             }
 
-            outerCamera = GameObject.Find("OuterCamera");
-        }
-
-        void Start()
-        {
+            outerCamera = GameObject.Find("/OuterCamera");
             username = PlayerPrefs.GetString("username", "");
 
             if (useLobbyGUI) {
@@ -62,34 +69,32 @@ namespace Mirror
         }
         
         void Update() {
-            try {
-                if (NetworkClient.isConnected) {
-                    if (runOnce) {
-                        if (useLobbyGUI) {
-                            lobbyGUI.SetActive(false);
-                            connectingGUI.SetActive(false);
-                            hostJoinGUI.SetActive(true);
+            if (NetworkClient.isConnected) {
+                if (runOnce) {
+                    if (useLobbyGUI) {
+                        lobbyGUI.SetActive(false);
+                        connectingGUI.SetActive(false);
+                        hostJoinGUI.SetActive(true);
 
-                            PlayerPrefs.SetString("username", userInput.text);
-                            username = userInput.text;
+                        PlayerPrefs.SetString("username", userInput.text);
+                        username = userInput.text;
 
-                        }
-                        runOnce = false;
                     }
-                } else {
-                    if (!runOnce) {
-                        if (useLobbyGUI) {
-                            lobbyGUI.SetActive(true);
-                            pauseGUI.SetActive(false);
-                        } else {
-                            Debug.Log("Disconnected from host, returning to lobby...");
-                            SceneManager.LoadScene("Lobby");
-                        }
-                        runOnce = true;
-                    }
+                    runOnce = false;
                 }
-            } catch {
-
+            } else {
+                if (!runOnce) {
+                    if (useLobbyGUI) {
+                        lobbyGUI.SetActive(true);
+                        pauseGUI.SetActive(false);
+                        outerCamera.SetActive(true);
+                    } else {
+                        Debug.Log("Disconnected from host, returning to lobby...");
+                        GetComponent<CTFManager>().EndCTF();
+                        SetHUD();
+                    }
+                    runOnce = true;
+                }
             }
         }
 
@@ -124,7 +129,8 @@ namespace Mirror
             });
 
             backBtn.onClick.AddListener(() => {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+                SceneManager.LoadScene("Menu");
+                Destroy(gameObject);
             });
         }
         void ConnectListeners() 
@@ -168,10 +174,16 @@ namespace Mirror
                     manager.StopClient();
                 }
 
-                outerCamera.SetActive(true);
+                Debug.Log("exit?");
+                if (useLobbyGUI) {
+                    outerCamera.SetActive(true);
 
-                pauseGUI.SetActive(false);
-                lobbyGUI.SetActive(true);
+                    pauseGUI.SetActive(false);
+                    lobbyGUI.SetActive(true);
+                } else {
+                    GetComponent<CTFManager>().EndCTF();
+                    Destroy(gameObject);
+                }
             });
 
             exitDesktopBtn.onClick.AddListener(() => {

@@ -19,7 +19,7 @@ public class MenuOptions : MonoBehaviour
 
         volumeSlider.value = PlayerPrefs.GetFloat("masterVolume", 1);
         foreach(var audioObj in audioObjects) {
-            volumeSlider.value = audioObj.GetComponent<AudioSource>().volume;
+            audioObj.GetComponent<AudioSource>().volume = volumeSlider.value;
         }
 
         volumeSlider.onValueChanged.AddListener((float val) => {
