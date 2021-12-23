@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3481,6 +3481,54 @@ PrefabInstance:
     - target: {fileID: 1207260157089909047, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
       propertyPath: m_Name
       value: ChickenArena_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547754482682439404, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 386860439
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825704277861958361, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 3568960183
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527291513813629504, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 3408290135
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462214708055962546, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 2503274511
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591873570877803878, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 1480725934
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080952964957605781, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 1472085665
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121257649418027943, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 2632639787
+      objectReference: {fileID: 0}
+    - target: {fileID: 5264680894701816155, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 745646991
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878372887314370206, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 2245548243
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276469692296652178, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 12094931
+      objectReference: {fileID: 0}
+    - target: {fileID: 7381993913394126857, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 2338244887
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760118125459225909, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}
+      propertyPath: sceneId
+      value: 4254448888
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10056aecb01fb24793f2b401cf40a72, type: 3}

@@ -12,6 +12,10 @@ TagManager:
   - playerGUI
   - grenade
   - ammo
+  - PistolAmmo
+  - SMGAmmo
+  - ShotgunAmmo
+  - SniperAmmo
   - ammoPea
   - ammoWheat
   - ammoCorn

@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 817031363905160542}
+  - component: {fileID: 6135311203046156152}
   - component: {fileID: 817031363905160529}
   - component: {fileID: 817031363905160530}
   - component: {fileID: 817031363905160531}
-  - component: {fileID: 817031363905160528}
   m_Layer: 0
   m_Name: SunFlowerAmmo
-  m_TagString: ammoPea
+  m_TagString: SniperAmmo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,6 +35,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6135311203046156152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817031363905160540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88c75ce69a6a3a47a091d430be2261b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &817031363905160529
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -45,10 +57,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.22
-  m_Height: 1
+  m_Radius: 0.2799219
+  m_Height: 1.334781
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.12117303, z: 0.00690639}
 --- !u!114 &817031363905160530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,18 +107,6 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
---- !u!114 &817031363905160528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817031363905160540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbdc28462d97743689020f507a8eddb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3581314120607349294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,6 +173,14 @@ PrefabInstance:
     - target: {fileID: 4400482160171448048, guid: 18bb023d75a113f4cb8d1452371f5c0e, type: 3}
       propertyPath: m_Name
       value: PP_Sunflower_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400482160171448049, guid: 18bb023d75a113f4cb8d1452371f5c0e, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400482160171448049, guid: 18bb023d75a113f4cb8d1452371f5c0e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18bb023d75a113f4cb8d1452371f5c0e, type: 3}

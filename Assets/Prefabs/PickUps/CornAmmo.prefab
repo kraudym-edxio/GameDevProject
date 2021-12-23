@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8566604542328977468}
   - component: {fileID: 8566604542328977471}
   - component: {fileID: 8566604542328977470}
-  - component: {fileID: 8566604542328977469}
+  - component: {fileID: 4258783071794867602}
   m_Layer: 0
   m_Name: CornAmmo
-  m_TagString: ammoCorn
+  m_TagString: SMGAmmo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8566604542328977457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.682, y: 0.025, z: -6.945}
-  m_LocalScale: {x: 1.1838, y: 1.15, z: 2}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_Children:
   - {fileID: 9093645277030561466}
   m_Father: {fileID: 0}
@@ -46,9 +46,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.22
-  m_Height: 1
+  m_Height: 1.1125323
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.056265958, z: 0}
 --- !u!114 &8566604542328977471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
---- !u!114 &8566604542328977469
+--- !u!114 &4258783071794867602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8566604542328977457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbdc28462d97743689020f507a8eddb0, type: 3}
+  m_Script: {fileID: 11500000, guid: b88c75ce69a6a3a47a091d430be2261b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4624431227542268940

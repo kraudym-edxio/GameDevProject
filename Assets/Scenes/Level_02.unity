@@ -3320,6 +3320,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1671140107286810023, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 501399110
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953889116402526610, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 4249390126
+      objectReference: {fileID: 0}
     - target: {fileID: 2072256175502008838, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3364,9 +3372,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2402971321237197067, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 3052192780
+      objectReference: {fileID: 0}
     - target: {fileID: 3335823568675995097, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
       propertyPath: m_Name
       value: ChickenArena_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623126642840164601, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 3023042588
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463686520697398829, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 350881992
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956356935889134814, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 486574539
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997292582181759212, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 3638156716
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423540063584641552, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 3692319422
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043693726022903253, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 3797376185
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222001153175767874, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 23172930
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399582633288519385, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 2000491561
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636651152735606398, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}
+      propertyPath: sceneId
+      value: 2609251794
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c8c2e63703b43142a660f08ff7db9ee, type: 3}

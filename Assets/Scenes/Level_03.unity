@@ -1945,6 +1945,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 413124140192364879, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 42901108
+      objectReference: {fileID: 0}
+    - target: {fileID: 691083642031332730, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 2397998092
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363630427883514897, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 4015095503
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420642349845238469, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 3954234453
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734524825272296931, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 1548613795
+      objectReference: {fileID: 0}
     - target: {fileID: 4351854237623381426, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1992,6 +2012,34 @@ PrefabInstance:
     - target: {fileID: 4351854237623381428, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
       propertyPath: m_Name
       value: ChickenArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707704487386206525, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 3315995271
+      objectReference: {fileID: 0}
+    - target: {fileID: 6215573841323216950, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 3314777368
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328489887134882820, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 4073960236
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471369020208518904, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 1470485894
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375070327234837041, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 2132234213
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553198728984412074, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 1609594892
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894739998173225622, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}
+      propertyPath: sceneId
+      value: 2508950799
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c333e54ce5a76664497a1c79f49bec37, type: 3}

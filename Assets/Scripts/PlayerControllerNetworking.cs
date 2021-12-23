@@ -174,9 +174,7 @@ public class PlayerControllerNetworking: NetworkBehaviour
         if (Col.gameObject.tag == "health")
         {
             IncHealth(20);
-            
             Col.gameObject.SetActive(false);
-            Destroy(Col.gameObject);
         }
         else if (Col.gameObject.name == "StartFlag") 
         {
