@@ -16,6 +16,16 @@ TagManager:
   - SMGAmmo
   - ShotgunAmmo
   - SniperAmmo
+  - ammoPea
+  - ammoWheat
+  - ammoCorn
+  - ammoSun
+  - BlueFlagSpawn
+  - RedFlagSpawn
+  - BlueFlag
+  - RedFlag
+  - RedArea
+  - BlueArea
   layers:
   - Default
   - TransparentFX

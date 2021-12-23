@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class GunController : NetworkBehaviour
@@ -10,6 +11,7 @@ public class GunController : NetworkBehaviour
     // Basic Requirements
     CharacterController characterController;
     PlayerControllerNetworking pcn;
+    private CTFPlayerManager pm;
 
     // Player Gun Variables
     public int gun = 1;
@@ -17,6 +19,18 @@ public class GunController : NetworkBehaviour
     [SerializeField] public GameObject cornPrefab; // SMG gun 2 = corn
     [SerializeField] public GameObject grainPrefab; // shotgun gun 3 = grains
     [SerializeField] public GameObject sunSeedPrefab; // sniper gun 4 = sunflower seeds
+    //Ammo
+    Image pea_Image;
+    [SerializeField] public Image pea_Sprite; // Ammo  pistol gun
+    [SerializeField] public Image corn_Sprite; // Ammo  SMG gun 2
+    [SerializeField] public Image wheat_Sprite; // Ammo shotgun gun 3
+    [SerializeField] public Image sun_Sprite; // Ammo sniper gun 4
+    private GameObject pea_UI; // Ammo  pistol gun
+    private GameObject corn_UI; // Ammo  SMG gun 2
+    private GameObject wheat_UI; // Ammo shotgun gun 3
+    private GameObject sun_UI; // Ammo sniper gun 4
+    [SerializeField] public Text player_GUI;
+
     [SerializeField] public Camera cam;
     [SerializeField] public GameObject beakPrefab;
     public Gun pistol;
@@ -24,10 +38,27 @@ public class GunController : NetworkBehaviour
     public Gun shotgun;
     public Gun sniper;
 
-    private void Start()
+        private void Start()
     {
+       
+
+
         pcn = GetComponent<PlayerControllerNetworking>();
+        pm = GetComponent<CTFPlayerManager>();
         Transform beak = beakPrefab.transform;
+        Team enemy;
+        if (pm.playerTeam == Team.Red)
+        {
+            enemy = Team.Blue;
+        } else if (pm.playerTeam == Team.Blue)
+        {
+            enemy = Team.Red;
+        }
+        else
+        {
+            enemy = Team.Error;
+        }
+        
         // Psuedo-Constructor for Gun: fields you can/should change
         // Gun(int dmg, int bps, int ammo, float dShot, float range, float spread, GameObject bullet)
         
@@ -38,6 +69,8 @@ public class GunController : NetworkBehaviour
         pistol.bulletPrefab = peaPrefab;
         pistol.cam = cam;
         pistol.bulletSpawn = beak;
+        pistol.enemy = enemy;
+        
         
         // SMG
         smg = gameObject.AddComponent<Gun>();
@@ -47,6 +80,7 @@ public class GunController : NetworkBehaviour
         smg.bulletPrefab = cornPrefab;
         smg.cam = cam;
         smg.bulletSpawn = beak;
+        smg.enemy = enemy;
         
         // SHOTGUN
         shotgun = gameObject.AddComponent<Gun>();
@@ -54,10 +88,12 @@ public class GunController : NetworkBehaviour
         shotgun.bps = 4;
         shotgun.ammo = 12;
         shotgun.deltaShot = 2;
-        shotgun.spread = 0.06f;
+        shotgun.spread = 0.1f;
+        shotgun.range = 40;
         shotgun.bulletPrefab = grainPrefab;
         shotgun.cam = cam;
         shotgun.bulletSpawn = beak;
+        shotgun.enemy = enemy;
         
         // SNIPER
         sniper = gameObject.AddComponent<Gun>();
@@ -67,6 +103,7 @@ public class GunController : NetworkBehaviour
         sniper.bulletPrefab = sunSeedPrefab;
         sniper.cam = cam;
         sniper.bulletSpawn = beak;
+        sniper.enemy = enemy;
     }
 
     private void Update() {
@@ -82,6 +119,7 @@ public class GunController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             gun = 1;
+            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {

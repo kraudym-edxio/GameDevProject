@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 1865502153}
   m_Layer: 0
   m_Name: StartMenuManager
-  m_TagString: Untagged
+  m_TagString: hasAudio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
