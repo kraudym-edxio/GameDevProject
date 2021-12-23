@@ -7,11 +7,17 @@ public class CTFPlayerManager : NetworkBehaviour
 {
 
     [SyncVar]
-    public Team playerTeam;
+    public Team playerTeam = Team.None;
 
     void Start() {
         DontDestroyOnLoad(gameObject);
+        StartCoroutine("PlayerTeamSet");
+        transform.position = GameObject.Find("/NetworkManager/CTFManager").GetComponent<CTFManager>().GetRandomSpawnLocation().position;
+        Debug.Log(transform.position);
+    }
 
+    IEnumerator PlayerTeamSet() {
+        System.Threading.Thread.Sleep(500);
         if (playerTeam == Team.None) {
 
             // check if teams are unbalanced: if so balance by choosing team with lowest player count
@@ -54,7 +60,6 @@ public class CTFPlayerManager : NetworkBehaviour
                 transform.Find("BlueChicken").gameObject.SetActive(true);
                 break;
         }
-        transform.position = GameObject.Find("/NetworkManager/CTFManager").GetComponent<CTFManager>().GetRandomSpawnLocation().position;
-        Debug.Log(transform.position);
+        yield return null;
     }
 }
