@@ -60,7 +60,7 @@ public class CTFManager : NetworkBehaviour
 
                 Debug.Log(r.transform.position);
             }
-        } catch (System.Exception e){
+        } catch{
             redFlagChoice = -1;
             blueFlagChoice = -1;
             //Debug.LogError(e);
@@ -132,6 +132,7 @@ public class CTFManager : NetworkBehaviour
                 var blueFlagChoice = Random.Range(0, blueFlagSpawnLocations.Length);
                 var r = Instantiate(redFlag, redFlagSpawnLocations[redFlagChoice].transform);
                 var b = Instantiate(blueFlag, blueFlagSpawnLocations[blueFlagChoice].transform);
+                Debug.Log(r);
                 NetworkServer.Spawn(r);
                 NetworkServer.Spawn(b);
             }

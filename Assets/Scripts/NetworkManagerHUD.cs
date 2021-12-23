@@ -177,7 +177,7 @@ namespace Mirror
                     pauseGUI.SetActive(false);
                     lobbyGUI.SetActive(true);
                 } else {
-                    GetComponent<CTFManager>().EndCTF();
+                    transform.Find("CTFManager").GetComponent<CTFManager>().EndCTF();
                     Destroy(gameObject);
                 }
             });
