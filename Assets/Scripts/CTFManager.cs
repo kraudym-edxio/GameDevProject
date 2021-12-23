@@ -11,11 +11,102 @@ public enum Team {
     Error
 }
 
-public class CTFManager : MonoBehaviour 
+public class CTFManager : NetworkBehaviour 
 {
     public HashSet<int> chosenSpawnPoints = new HashSet<int>();
 
+    // needed prefabs
+    public GameObject redFlag;
+    public GameObject blueFlag;
 
+    // entry point for capture the flag. 
+    // required data for CTF
+    public int currLevelIndex = 2;  // 0=menu, 1=lobby, 2=level1, 3=level2, 4=level3
+
+    // amount of wins by each team: 10 declares victory
+    [SyncVar]
+    public bool inGame = false;
+
+    [SyncVar]
+	public int redWins = 0;
+
+    [SyncVar]
+    public int blueWins = 0;
+
+    public int winLimit = 1;
+
+    // method to call that starts ctf
+    public void StartCTF() {
+        Debug.Log("starting capture the flag match...");
+        chosenSpawnPoints = new HashSet<int>();     // erase old spawn points
+        foreach(var g in GameObject.FindGameObjectsWithTag("hasAudio")) {
+            g.GetComponent<AudioSource>().mute = true;
+        }
+        if (!inGame) {
+            SceneManager.LoadScene(currLevelIndex);
+            inGame = true;
+            // coroutine waits for scene to load before getting objects in scene
+            StartCoroutine("startCTFOnceSceneLoads");
+        } else {
+            Debug.Log("game already started... wait for game to end. ");
+        }
+    }
+
+    public void EndCTF() {
+        SceneManager.LoadScene("Lobby");
+        inGame = false;
+        redWins = 0;
+        blueWins = 0;
+    }
+
+    private IEnumerator startCTFOnceSceneLoads() {
+        while (SceneManager.GetActiveScene().buildIndex != currLevelIndex) {
+            yield return null;
+        }
+        if (SceneManager.GetActiveScene().buildIndex == currLevelIndex) {
+
+            currLevelIndex++;
+            if (currLevelIndex==5) currLevelIndex=2;
+
+            foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
+                g.GetComponent<PlayerControllerNetworking>().SetPauseMenu();
+                g.GetComponent<PlayerControllerNetworking>().SetPosition();
+            }
+
+            var nmh = GameObject.Find("/NetworkManager").GetComponent<NetworkManagerHUD>();
+            nmh.useLobbyGUI = false;
+            nmh.SendMessage("SetHUD");
+            
+            SetFlags();
+        }
+
+    }
+
+    public void SetFlags() {
+        var redFlagSpawnLocations = GameObject.FindGameObjectsWithTag($"RedFlagSpawn");
+        var blueFlagSpawnLocations = GameObject.FindGameObjectsWithTag($"BlueFlagSpawn");
+
+        if (redFlagSpawnLocations.Length > 0 && blueFlagSpawnLocations.Length > 0) {
+            var redChoice = Random.Range(0, redFlagSpawnLocations.Length);
+            var blueChoice = Random.Range(0, blueFlagSpawnLocations.Length);
+
+            Debug.Log(redChoice);
+
+            var r = Instantiate(redFlag, redFlagSpawnLocations[redChoice].transform);
+            var b = Instantiate(blueFlag, blueFlagSpawnLocations[blueChoice].transform);
+
+            r.transform.parent = GameObject.Find("/RedArea").transform;
+            b.transform.parent = GameObject.Find("/BlueArea").transform;
+        }
+    }
+    
+    // helper functions
+    public Transform GetRandomSpawnLocation2(Team t=Team.Red) {
+        if (SceneManager.GetActiveScene().buildIndex == 1) { // is lobby
+            return GetRandomSpawnLocation(false, t);
+        } 
+        return GetRandomSpawnLocation(true, t);
+    }
     public Transform GetRandomSpawnLocation(bool useTeamSpawn=false, Team t=Team.Red) {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if (useTeamSpawn) {
@@ -46,41 +137,5 @@ public class CTFManager : MonoBehaviour
         return spawnPoints[randIndex].transform;
     }
 
-    // entry point for capture the flag. 
-    // required data for CTF
-    public int currLevelIndex = 2;  // 0=menu, 1=lobby, 2=level1, 3=level2, 4=level3
-
-    // method to call that starts ctf
-    public void StartCTF() {
-        Debug.Log("starting capture the flag match...");
-        chosenSpawnPoints = new HashSet<int>();     // erase old spawn points
-        foreach(var g in GameObject.FindGameObjectsWithTag("hasAudio")) {
-            g.GetComponent<AudioSource>().mute = true;
-        }
-        SceneManager.LoadScene(currLevelIndex);
-        // coroutine waits for scene to load before getting objects in scene
-        StartCoroutine("startCTFOnceSceneLoads");
-    }
-
-    private IEnumerator startCTFOnceSceneLoads() {
-        while (SceneManager.GetActiveScene().buildIndex != currLevelIndex) {
-            yield return null;
-        }
-        if (SceneManager.GetActiveScene().buildIndex == currLevelIndex) {
-
-            currLevelIndex++;
-            if (currLevelIndex==5) currLevelIndex=2;
-
-            foreach(var g in GameObject.FindGameObjectsWithTag("Player")) {
-                g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPauseMenu");
-                g.GetComponent<PlayerControllerNetworking>().SendMessage("SetPosition");
-            }
-
-            var nmh = gameObject.GetComponent<NetworkManagerHUD>();
-            nmh.useLobbyGUI = false;
-            nmh.SendMessage("SetHUD");
-        }
-
-    }
 
 }
