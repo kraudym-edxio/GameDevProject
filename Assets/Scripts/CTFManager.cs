@@ -34,7 +34,7 @@ public class CTFManager : NetworkBehaviour
     [SyncVar]
     public int blueWins = 0;
 
-    public int winLimit = 1;
+    public int winLimit = 10;
 
     public Text redCountGUI;
     public Text blueCountGUI;

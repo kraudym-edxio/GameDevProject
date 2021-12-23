@@ -412,6 +412,10 @@ PrefabInstance:
       propertyPath: lobby
       value: 
       objectReference: {fileID: 967494911}
+    - target: {fileID: 2594671918722741886, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
+      propertyPath: winLimit
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4696864692644956394, guid: 2d0ffed690eaac341884ca963ceb93e3, type: 3}
       propertyPath: LobbyGUI
       value: 
@@ -1277,11 +1281,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6037492238235553643, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 294
+      value: 391.8
       objectReference: {fileID: 0}
     - target: {fileID: 6037492238235553643, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 95
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6886297713694097277, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1293,11 +1297,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7620548854098518371, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1163
+      value: 1069
       objectReference: {fileID: 0}
     - target: {fileID: 7620548854098518371, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 161
+      value: 169
       objectReference: {fileID: 0}
     - target: {fileID: 7620548854312326998, guid: 543988ae2e76aba43ad6fdc5b3bd13be, type: 3}
       propertyPath: m_AnchoredPosition.x

@@ -200,7 +200,6 @@ Transform:
   - {fileID: 2489624638535377048}
   - {fileID: 8896830950769796858}
   - {fileID: 5077856202156829189}
-  - {fileID: 480782225532081969}
   - {fileID: 5402302051480060939}
   - {fileID: 2491582093270857190}
   - {fileID: 8314112604025763517}
@@ -365,10 +364,15 @@ MonoBehaviour:
   playerCamera: {fileID: 5077856202156829186}
   lookSpeed: 3
   lookXLimit: 75
+  peaAmmoCnt: 0
+  cornAmmoCnt: 0
+  wheatAmmoCnt: 0
+  sunAmmoCnt: 0
   canMove: 1
   healthBar: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
+  hasFlag: 0
   pauseMenu: {fileID: 0}
 --- !u!114 &2281508030716840610
 MonoBehaviour:
@@ -389,10 +393,11 @@ MonoBehaviour:
   cornPrefab: {fileID: 2643336018903559669, guid: c8932bd085ddeaa4ea3c5e746c925584, type: 3}
   grainPrefab: {fileID: 7488599849025497149, guid: 3998fabfe65f4244db3f7400bfa4b8d9, type: 3}
   sunSeedPrefab: {fileID: 5247463454208115816, guid: 22e4d5bda9c28e542a381706094be44a, type: 3}
-  peaImage: {fileID: 21300000, guid: 7597de3a70e2c4151875c5fb816cf0e5, type: 3}
-  cornImage: {fileID: 21300000, guid: 23de36d9c9c854d4dbb503079e846575, type: 3}
-  wheatImage: {fileID: 21300000, guid: d7bac4c3e8f044f2983b509e3ef144a1, type: 3}
-  sunImage: {fileID: 21300000, guid: 475d1ac95f51a4b41969b1c49e47b1f6, type: 3}
+  pea_Sprite: {fileID: 0}
+  corn_Sprite: {fileID: 0}
+  wheat_Sprite: {fileID: 0}
+  sun_Sprite: {fileID: 0}
+  player_GUI: {fileID: 0}
   cam: {fileID: 5077856202156829186}
   beakPrefab: {fileID: 8689389952016227624}
   pistol: {fileID: 0}
@@ -457,6 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8e84d731d2f494c8371a7819343390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   playerTeam: 0
 --- !u!1 &2493008700413267690
 GameObject:
@@ -1011,7 +1018,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2491336495091005646}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3663797355727973763
 SkinnedMeshRenderer:
@@ -1113,7 +1120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2491336495091005646}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4810429132649236858
 SkinnedMeshRenderer:
@@ -1455,15 +1462,19 @@ PrefabInstance:
       objectReference: {fileID: 5077856202156829189}
     - target: {fileID: 6261632503750619061, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6261632503750619061, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7122908626366606814, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
       propertyPath: m_Name
       value: HealthCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7122908626366606814, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7581037499782689284, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -1476,17 +1487,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3909466705968406501, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
   m_PrefabInstance: {fileID: 8987463393168579566}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7563382544670543930 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1463505006758562772, guid: 6fda0981424dd4f15be1219d3d13b268, type: 3}
-  m_PrefabInstance: {fileID: 8987463393168579566}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 680045a18a1bd48df8f1f39d91d2480e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &9015516801762804000
 PrefabInstance:
   m_ObjectHideFlags: 0
